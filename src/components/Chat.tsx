@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   addDoc,
   collection,
@@ -14,15 +14,21 @@ export interface IChat {
 }
 export const Chat: React.FC<IChat> = ({ room }) => {
   const [newMessage, setNewMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const buttonRef = useRef<HTMLInputElement>(null);
 
   const messagesRef = collection(db, "messages");
 
   useEffect(() => {
     const queryMessages = query(messagesRef, where("room", "==", room));
     onSnapshot(queryMessages, (snapshot) => {
-      console.log("newMessage");
+      let messages = [];
+      snapshot.forEach((doc) => {
+        messages.push({ ...doc.data(), id: doc.id });
+      });
     });
-  });
+    setMessages(messages);
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -35,7 +41,8 @@ export const Chat: React.FC<IChat> = ({ room }) => {
       room,
     });
 
-    setNewMessage;
+    setNewMessage("");
+    if (null !== buttonRef.current) buttonRef.current.focus();
   };
   const handleInputChange = (
     event: React.FormEvent<HTMLInputElement>
@@ -49,9 +56,10 @@ export const Chat: React.FC<IChat> = ({ room }) => {
           placeholder="Type your message..."
           onChange={handleInputChange}
           value={newMessage}
+          ref={buttonRef}
           className="rounded-md border-2 p-2"
         />
-        <button type="submit" className="submitButton">
+        <button type="submit" name="submitButton" className="submitButton">
           Send
         </button>
       </form>
