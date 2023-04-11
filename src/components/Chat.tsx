@@ -64,7 +64,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
         {messages.map((message) => (
           <div
             key={nanoid()}
-            className="my-2 flex w-[460px] items-center justify-between gap-8 rounded-md border-2 bg-slate-50 p-2 md:w-[660px]"
+            className="my-2 flex w-[460px] items-center justify-between gap-8 rounded-md border-2 bg-slate-200 p-2 md:w-[660px]"
           >
             <p className="w-32 justify-items-start font-serif text-slate-700">
               {message.user !== "" && message.user}:
@@ -75,20 +75,23 @@ export const Chat: React.FC<IChat> = ({ room }) => {
           </div>
         ))}
       </div>
-      <div className="">
-        <form onSubmit={handleSubmit}>
-          <input
-            placeholder="Type your message..."
-            onChange={handleInputChange}
-            value={newMessage}
-            ref={buttonRef}
-            className="rounded-md border-2 p-2 "
-          />
-          <button type="submit" name="submitButton" className="submitButton">
-            Send
-          </button>
-        </form>
-      </div>
+
+      <form onSubmit={handleSubmit}>
+        <input
+          placeholder="Type your message..."
+          onChange={handleInputChange}
+          value={newMessage}
+          ref={buttonRef}
+          className="mr-2 w-[400px] rounded-md border-2 p-2 md:w-[580px]"
+        />
+        <button
+          type="submit"
+          name="submitButton"
+          className="submitButton m-0 px-4"
+        >
+          Send
+        </button>
+      </form>
     </>
   );
 };
