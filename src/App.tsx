@@ -18,7 +18,7 @@ function App() {
     );
   }
   return (
-    <div className="my-64">
+    <div className="mb-64 bg-slate-100 p-64">
       {room ? (
         <Chat room={room} />
       ) : (
