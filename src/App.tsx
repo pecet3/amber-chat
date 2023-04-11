@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Auth } from "./components/Auth";
 import "./App.css";
 import Cookies from "universal-cookie";
@@ -8,6 +8,7 @@ type TAuth = Cookies;
 function App() {
   const [isAuth, setIsAuth] = useState<TAuth>(cookies.get("auth-token"));
   const [room, setRoom] = useState("");
+  const roomInputRef = useRef<HTMLInputElement>(null);
 
   if (!isAuth) {
     return (
@@ -23,8 +24,15 @@ function App() {
       ) : (
         <div>
           <label>Enter Room Name</label>
-          <input></input>
-          <button>EnterChat</button>
+          <input ref={roomInputRef}></input>
+          <button
+            onClick={() =>
+              null !== roomInputRef.current &&
+              setRoom(roomInputRef.current.value)
+            }
+          >
+            EnterChat
+          </button>
         </div>
       )}
     </div>
