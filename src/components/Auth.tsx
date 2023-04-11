@@ -3,11 +3,15 @@ import { signInWithPopup } from "firebase/auth";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
-export const Auth: React.FC = () => {
+interface IAuth {
+  setAuthTrue: React.Dispatch<React.SetStateAction<Boolean>>;
+}
+export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
   const signGoogleHandle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       cookies.set("auth-token", result.user.refreshToken);
+      setAuthTrue((prev) => (prev = true));
     } catch (err) {
       console.error(err);
     }
