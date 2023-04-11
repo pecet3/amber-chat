@@ -7,6 +7,7 @@ import {
   onSnapshot,
   query,
   where,
+  orderBy,
 } from "firebase/firestore";
 import { auth, db } from "../firebase-config";
 
@@ -20,6 +21,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
       text: "",
       user: "",
       createdAt: "",
+      photo: "",
     },
   ]);
   const buttonRef = useRef<HTMLInputElement>(null);
@@ -27,7 +29,11 @@ export const Chat: React.FC<IChat> = ({ room }) => {
   const messagesRef = collection(db, "messages");
 
   useEffect(() => {
-    const queryMessages = query(messagesRef, where("room", "==", room));
+    const queryMessages = query(
+      messagesRef,
+      where("room", "==", room),
+      orderBy("createdAt")
+    );
     const unSubscribe = onSnapshot(queryMessages, (snapshot) => {
       let messages: Array<any> = [];
       snapshot.forEach((doc) => {
@@ -47,6 +53,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
       text: newMessage,
       createdAt: serverTimestamp(),
       user: auth.currentUser ? auth.currentUser.displayName : "",
+      photo: auth.currentUser ? auth.currentUser.photoURL : "",
       room,
     });
 
@@ -61,28 +68,30 @@ export const Chat: React.FC<IChat> = ({ room }) => {
   return (
     <>
       <div className="flex flex-col items-center">
+        <h1 className="my-6 text-4xl text-stone-300">Welcome to {room}</h1>
         {messages.map((message) => (
           <div
             key={nanoid()}
-            className="my-2 flex w-[460px] items-center justify-between gap-8 rounded-md border-2 bg-slate-200 p-2 md:w-[660px]"
+            className="my-2 flex w-[460px] items-center justify-between rounded-md border-2 bg-slate-200 p-2 md:w-[660px]"
           >
-            <p className="w-32 justify-items-start font-serif text-slate-700">
+            <p className="w-32 font-serif text-slate-700">
+              <img src={message.photo} className="h-14 w-auto rounded-full" />
               {message.user !== "" && message.user}:
             </p>
-            <p className="m-0 w-96 grow break-all px-8 text-right text-lg">
+            <p className="m-0 w-96 grow break-all px-8 text-left text-lg">
               {message.text !== "" && message.text}
             </p>
           </div>
         ))}
       </div>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="my-4">
         <input
           placeholder="Type your message..."
           onChange={handleInputChange}
           value={newMessage}
           ref={buttonRef}
-          className="mr-2 w-[400px] rounded-md border-2 p-2 md:w-[580px]"
+          className="mr-2 w-[400px] rounded-md border-2 p-2 md:w-[585px]"
         />
         <button
           type="submit"
