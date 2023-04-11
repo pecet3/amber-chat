@@ -18,14 +18,18 @@ function App() {
     );
   }
   return (
-    <div>
+    <div className="my-64">
       {room ? (
-        <Chat />
+        <Chat room={room} />
       ) : (
         <div>
-          <label>Enter Room Name:</label>
-          <input ref={roomInputRef}></input>
+          <input
+            ref={roomInputRef}
+            className="rounded-md border-2 p-2"
+            placeholder="Enter room name..."
+          ></input>
           <button
+            className="submitButton"
             onClick={() =>
               null !== roomInputRef.current &&
               setRoom(roomInputRef.current.value)
