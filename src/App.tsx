@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Auth } from "./components/Auth";
+import { Chat } from "./components/Chat";
 import "./App.css";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
@@ -9,7 +10,6 @@ function App() {
   const [room, setRoom] = useState("");
   const roomInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => console.log(isAuth), [isAuth]);
   if (!isAuth) {
     return (
       <div className="App">
@@ -20,7 +20,7 @@ function App() {
   return (
     <div>
       {room ? (
-        <div>Chat</div>
+        <Chat />
       ) : (
         <div>
           <label>Enter Room Name:</label>
