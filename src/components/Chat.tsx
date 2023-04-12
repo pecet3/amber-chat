@@ -26,6 +26,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
     },
   ]);
   const buttonRef = useRef<HTMLInputElement>(null);
+  const scroll = useRef<null | HTMLDivElement>(null);
 
   const messagesRef = collection(db, "messages");
 
@@ -41,6 +42,8 @@ export const Chat: React.FC<IChat> = ({ room }) => {
         messages.push({ ...doc.data(), id: doc.id });
       });
       setMessages(messages);
+      if (null !== scroll.current)
+        scroll.current.scrollIntoView({ behavior: "smooth" });
     });
     return () => unSubscribe();
   }, []);
@@ -80,24 +83,27 @@ export const Chat: React.FC<IChat> = ({ room }) => {
       </h1>
       <div className="m-auto h-[700px] max-w-3xl overflow-y-scroll p-2 py-6">
         {messages.map((message) => (
-          <div
-            key={nanoid()}
-            className="my-2 flex items-end justify-between gap-1 rounded-2xl bg-blue-200 p-2 shadow-xl "
-          >
-            <p className="w-32 basis-1/6 font-serif text-slate-700">
-              <img
-                src={message.photo}
-                className="h-14 w-auto rounded-full shadow-xl"
-              />
-              {message.user !== "" && message.user}:
-            </p>
-            <p className="m-0 basis-3/4 break-all text-left text-lg">
-              {message.text !== "" && message.text}
-            </p>
-            <p className="m-0 basis-1/6 self-start text-xs">
-              {message.date !== "" && message.date}
-            </p>
-          </div>
+          <>
+            <div
+              key={nanoid()}
+              className="my-2 flex items-end justify-between gap-1 rounded-2xl bg-blue-200 p-2 shadow-xl "
+            >
+              <p className="w-32 basis-1/6 font-serif text-slate-700">
+                <img
+                  src={message.photo}
+                  className="h-14 w-auto rounded-full shadow-xl"
+                />
+                {message.user !== "" && message.user}:
+              </p>
+              <p className="m-0 basis-3/4 break-all text-left text-lg">
+                {message.text !== "" && message.text}
+              </p>
+              <p className="m-0 basis-1/6 self-start text-xs">
+                {message.date !== "" && message.date}
+              </p>
+            </div>
+            <div ref={scroll}></div>
+          </>
         ))}
       </div>
 
