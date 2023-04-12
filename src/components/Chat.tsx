@@ -42,8 +42,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
         messages.push({ ...doc.data(), id: doc.id });
       });
       setMessages(messages);
-      if (null !== scroll.current)
-        scroll.current.scrollIntoView({ behavior: "smooth" });
+      scroll.current?.scrollIntoView({ behavior: "smooth" });
     });
     return () => unSubscribe();
   }, []);
@@ -83,7 +82,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
       <h1 id="test" className="my-6 text-2xl text-blue-400 lg:text-4xl ">
         Welcome to {room}
       </h1>
-      <div className="m-auto h-[700px] max-w-3xl overflow-y-scroll p-2 py-6">
+      <div className="m-auto h-[700px] max-w-3xl overflow-y-scroll rounded-2xl">
         {messages.map((message) => (
           <>
             <div
