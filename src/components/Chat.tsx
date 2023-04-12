@@ -25,9 +25,8 @@ export const Chat: React.FC<IChat> = ({ room }) => {
       date: "",
     },
   ]);
-  const buttonRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const scroll = useRef<HTMLDivElement>(null);
-
   const messagesRef = collection(db, "messages");
 
   useEffect(() => {
@@ -46,8 +45,6 @@ export const Chat: React.FC<IChat> = ({ room }) => {
     });
     return () => unSubscribe();
   }, []);
-
-  useEffect(() => {}, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -70,7 +67,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
     });
 
     setNewMessage("");
-    buttonRef.current?.focus();
+    inputRef.current?.focus();
   };
   const handleInputChange = (
     event: React.FormEvent<HTMLInputElement>
@@ -82,46 +79,47 @@ export const Chat: React.FC<IChat> = ({ room }) => {
       <h1 id="test" className="my-6 text-2xl text-blue-400 lg:text-4xl ">
         Welcome to {room}
       </h1>
-      <div className="m-auto h-[700px] max-w-3xl overflow-y-scroll rounded-2xl">
+      <div className="m-auto h-[700px] max-w-3xl overflow-y-scroll rounded-2xl py-2">
         {messages.map((message) => (
-          <div
-            key={nanoid()}
-            className={`my-2 flex items-end justify-between gap-4 rounded-2xl p-2 shadow-lg ${
-              message.user === auth.currentUser?.displayName
-                ? "flex-row-reverse bg-blue-300 "
-                : "bg-blue-200"
-            }`}
-          >
-            <div className="m-auto flex basis-2/12 flex-col items-center self-start align-top font-serif text-sm text-slate-700">
-              <img
-                src={message.photo}
-                className="h-8 w-8 rounded-full shadow-xl"
-              />
-              {message.user !== "" && message.user}
-            </div>
-            <p
-              className={`basis-8/12 break-before-right self-center text-lg ${
+          <>
+            <div
+              key={nanoid()}
+              className={`my-2 flex items-end justify-between gap-4 rounded-2xl p-2 shadow-lg ${
                 message.user === auth.currentUser?.displayName
-                  ? "text-right"
-                  : "text-left"
+                  ? "flex-row-reverse bg-blue-300 "
+                  : "bg-blue-200"
               }`}
             >
-              {message.text !== "" && message.text}
-            </p>
-            <p className="m-0 basis-2/12 self-end text-xs">
-              {message.date !== "" && message.date}
-            </p>
-          </div>
+              <div className="m-auto flex basis-2/12 flex-col items-center self-start align-top font-serif text-sm text-slate-700">
+                <img
+                  src={message.photo}
+                  className="h-8 w-8 rounded-full shadow-xl"
+                />
+                {message.user !== "" && message.user}
+              </div>
+              <p
+                className={`basis-8/12 break-before-right self-center text-lg ${
+                  message.user === auth.currentUser?.displayName
+                    ? "text-right"
+                    : "text-left"
+                }`}
+              >
+                {message.text !== "" && message.text}
+              </p>
+              <p className="m-0 basis-2/12 self-end text-xs">
+                {message.date !== "" && message.date}
+              </p>
+              <div ref={scroll} key={nanoid()}></div>
+            </div>
+          </>
         ))}
-        <div ref={scroll}></div>
       </div>
-
       <form onSubmit={handleSubmit} className="m-auto my-4 flex max-w-3xl p-2">
         <input
           placeholder="Type your message..."
           onChange={handleInputChange}
           value={newMessage}
-          ref={buttonRef}
+          ref={inputRef}
           className="mr-2 max-w-3xl basis-10/12 rounded-md border-2 p-3"
           autoFocus={true}
         />
