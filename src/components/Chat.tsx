@@ -22,6 +22,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
       user: "",
       createdAt: "",
       photo: "",
+      date: "",
     },
   ]);
   const buttonRef = useRef<HTMLInputElement>(null);
@@ -41,7 +42,6 @@ export const Chat: React.FC<IChat> = ({ room }) => {
       });
       setMessages(messages);
     });
-
     return () => unSubscribe();
   }, []);
 
@@ -54,6 +54,14 @@ export const Chat: React.FC<IChat> = ({ room }) => {
       createdAt: serverTimestamp(),
       user: auth.currentUser ? auth.currentUser.displayName : "",
       photo: auth.currentUser ? auth.currentUser.photoURL : "",
+      date: new Date().toLocaleDateString(undefined, {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+      }),
       room,
     });
 
@@ -67,36 +75,45 @@ export const Chat: React.FC<IChat> = ({ room }) => {
   };
   return (
     <>
-      <div className="flex flex-col items-center">
-        <h1 className="my-6 text-4xl text-stone-300">Welcome to {room}</h1>
+      <h1 id="test" className="my-6 text-2xl text-blue-400 lg:text-4xl ">
+        Welcome to {room}
+      </h1>
+      <div className="m-auto h-[700px] max-w-3xl overflow-y-scroll p-2 py-6">
         {messages.map((message) => (
           <div
             key={nanoid()}
-            className="my-2 flex w-[460px] items-center justify-between rounded-md border-2 bg-slate-200 p-2 md:w-[660px]"
+            className="my-2 flex items-end justify-between gap-1 rounded-2xl bg-blue-200 p-2 shadow-xl "
           >
-            <p className="w-32 font-serif text-slate-700">
-              <img src={message.photo} className="h-14 w-auto rounded-full" />
+            <p className="w-32 basis-1/6 font-serif text-slate-700">
+              <img
+                src={message.photo}
+                className="h-14 w-auto rounded-full shadow-xl"
+              />
               {message.user !== "" && message.user}:
             </p>
-            <p className="m-0 w-96 grow break-all px-8 text-left text-lg">
+            <p className="m-0 basis-3/4 break-all text-left text-lg">
               {message.text !== "" && message.text}
+            </p>
+            <p className="m-0 basis-1/6 self-start text-xs">
+              {message.date !== "" && message.date}
             </p>
           </div>
         ))}
       </div>
 
-      <form onSubmit={handleSubmit} className="my-4">
+      <form onSubmit={handleSubmit} className="m-auto my-4 flex max-w-3xl p-2">
         <input
           placeholder="Type your message..."
           onChange={handleInputChange}
           value={newMessage}
           ref={buttonRef}
-          className="mr-2 w-[400px] rounded-md border-2 p-2 md:w-[585px]"
+          className="mr-2 max-w-3xl basis-10/12 rounded-md border-2 p-3"
+          autoFocus={true}
         />
         <button
           type="submit"
           name="submitButton"
-          className="submitButton m-0 px-4"
+          className="submitButton m-0 basis-2/12 px-4 "
         >
           Send
         </button>
