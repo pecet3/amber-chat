@@ -8,7 +8,7 @@ const cookies = new Cookies();
 function App() {
   const [isAuth, setIsAuth] = useState(!!cookies.get("auth-token"));
   const [room, setRoom] = useState("");
-  const [selectValue, setSelectValue] = useState("test");
+  const [selectValue, setSelectValue] = useState("#room1");
   document.documentElement.setAttribute("class", "bg-gray-200");
 
   const onFormChange = (e: React.FormEvent<HTMLFormElement>) => {
@@ -37,6 +37,7 @@ function App() {
               onChange={(e) => setSelectValue(e.currentTarget.value)}
             >
               <option value="#room1">#room 1</option>
+              <option value="#dev">#dev</option>
             </select>
             <button
               className="submitButton px-6 shadow-lg"
