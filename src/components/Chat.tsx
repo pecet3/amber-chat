@@ -84,38 +84,36 @@ export const Chat: React.FC<IChat> = ({ room }) => {
       </h1>
       <div className="m-auto h-[700px] max-w-3xl overflow-y-scroll rounded-2xl">
         {messages.map((message) => (
-          <>
-            <div
-              key={nanoid()}
-              className={`my-2 flex items-end justify-between gap-4 rounded-2xl p-2 shadow-lg ${
+          <div
+            key={nanoid()}
+            className={`my-2 flex items-end justify-between gap-4 rounded-2xl p-2 shadow-lg ${
+              message.user === auth.currentUser?.displayName
+                ? "flex-row-reverse bg-blue-300 "
+                : "bg-blue-200"
+            }`}
+          >
+            <div className="m-auto flex basis-2/12 flex-col items-center self-start align-top font-serif text-sm text-slate-700">
+              <img
+                src={message.photo}
+                className="h-8 w-8 rounded-full shadow-xl"
+              />
+              {message.user !== "" && message.user}
+            </div>
+            <p
+              className={`basis-8/12 break-before-right self-center text-lg ${
                 message.user === auth.currentUser?.displayName
-                  ? "flex-row-reverse bg-blue-300 "
-                  : "bg-blue-200"
+                  ? "text-right"
+                  : "text-left"
               }`}
             >
-              <div className="m-auto flex basis-2/12 flex-col items-center self-start align-top font-serif text-sm text-slate-700">
-                <img
-                  src={message.photo}
-                  className="h-8 w-8 rounded-full shadow-xl"
-                />
-                {message.user !== "" && message.user}
-              </div>
-              <p
-                className={`basis-8/12 break-before-right self-center text-lg ${
-                  message.user === auth.currentUser?.displayName
-                    ? "text-right"
-                    : "text-left"
-                }`}
-              >
-                {message.text !== "" && message.text}
-              </p>
-              <p className="m-0 basis-2/12 self-end text-xs">
-                {message.date !== "" && message.date}
-              </p>
-            </div>
-            <div ref={scroll}></div>
-          </>
+              {message.text !== "" && message.text}
+            </p>
+            <p className="m-0 basis-2/12 self-end text-xs">
+              {message.date !== "" && message.date}
+            </p>
+          </div>
         ))}
+        <div ref={scroll}></div>
       </div>
 
       <form onSubmit={handleSubmit} className="m-auto my-4 flex max-w-3xl p-2">
