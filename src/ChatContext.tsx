@@ -7,11 +7,15 @@ export interface IProvider {
   children: React.ReactNode;
 }
 export type TContext = {
-  signGoogleHandle: () => void;
-  isAuth: Boolean;
+  signGoogleHandle: () => Promise<void>;
+  isAuth: boolean;
+  room: string;
+  setRoom: React.Dispatch<React.SetStateAction<string>>;
+  setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export const ChatContextProvider: React.FC<IProvider> = ({ children }) => {
   const [isAuth, setIsAuth] = React.useState(!!cookies.get("auth-token"));
+  const [room, setRoom] = React.useState("");
 
   const signGoogleHandle = async () => {
     try {
@@ -23,15 +27,13 @@ export const ChatContextProvider: React.FC<IProvider> = ({ children }) => {
     }
   };
   return (
-    <Context.Provider value={{ signGoogleHandle, isAuth }}>
+    <Context.Provider
+      value={{ signGoogleHandle, isAuth, room, setRoom, setIsAuth }}
+    >
       {children}
     </Context.Provider>
   );
 };
-
-interface IAuth {
-  setAuthTrue: React.Dispatch<React.SetStateAction<Boolean>>;
-}
 
 const Context = React.createContext<TContext | null>(null);
 export default Context;
