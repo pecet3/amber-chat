@@ -8,8 +8,12 @@ const cookies = new Cookies();
 function App() {
   const [isAuth, setIsAuth] = useState(!!cookies.get("auth-token"));
   const [room, setRoom] = useState("");
-  const roomInputRef = useRef<HTMLInputElement>(null);
-  document.documentElement.setAttribute("class", "bg-gray-800");
+  const [selectValue, setSelectValue] = useState("test");
+  document.documentElement.setAttribute("class", "bg-gray-200");
+
+  const onFormChange = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
   if (!isAuth) {
     return (
       <div className="App">
@@ -18,25 +22,27 @@ function App() {
     );
   }
   return (
-    <div className="mb-64 ">
+    <div className="">
       {room ? (
         <Chat room={room} />
       ) : (
-        <div>
-          <form>
-            <input
-              ref={roomInputRef}
-              className="rounded-md border-2 p-2"
-              placeholder="Enter a room name..."
-            ></input>
-            <button
-              className="submitButton"
-              onClick={() =>
-                null !== roomInputRef.current &&
-                setRoom(roomInputRef.current.value)
-              }
+        <div className="my-64">
+          <h1 className="mb-12 text-4xl">Pick a ChatRoom</h1>
+          <form onSubmit={onFormChange}>
+            <select
+              name="select-room"
+              className="rounded-md px-4 py-2 shadow-lg"
+              autoFocus={true}
+              value={selectValue}
+              onChange={(e) => setSelectValue(e.currentTarget.value)}
             >
-              EnterChat
+              <option value="#room1">#room 1</option>
+            </select>
+            <button
+              className="submitButton px-6 shadow-lg"
+              onClick={() => setRoom(selectValue)}
+            >
+              Enter
             </button>
           </form>
         </div>
