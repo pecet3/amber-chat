@@ -3,7 +3,7 @@ import Context, { TContext } from "../ChatContext";
 
 const PickARoom = () => {
   const [selectValue, setSelectValue] = React.useState("#room1");
-  const { setRoom, room } = React.useContext(Context) as TContext;
+  const { setRoom } = React.useContext(Context) as TContext;
   const onFormChange = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -14,7 +14,7 @@ const PickARoom = () => {
       <form onSubmit={onFormChange}>
         <select
           name="select-room"
-          className="rounded-md px-4 py-2 shadow-lg"
+          className="rounded-md bg-slate-50 px-4 py-2 shadow-lg"
           autoFocus={true}
           value={selectValue}
           onChange={(e) => setSelectValue(e.currentTarget.value)}
@@ -24,10 +24,7 @@ const PickARoom = () => {
         </select>
         <button
           className="submitButton px-6 shadow-lg"
-          onClick={() => {
-            setRoom(selectValue);
-            console.log(room);
-          }}
+          onClick={() => setRoom(selectValue)}
         >
           Enter
         </button>
