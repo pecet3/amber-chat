@@ -20,10 +20,7 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
     <div className="my-20">
       <p>Welcome to...</p>
       <h1 className="mb-10 text-4xl">JakubChat</h1>
-      <button
-        onClick={() => signGoogleHandle()}
-        className="rounded-md border-2 p-2"
-      >
+      <button onClick={() => signGoogleHandle()} className="submitButton">
         Sign in With Google
       </button>
     </div>
