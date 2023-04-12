@@ -1,3 +1,4 @@
+import React from "react";
 import { auth, provider } from "../firebase-config";
 import { signInWithPopup } from "firebase/auth";
 import Cookies from "universal-cookie";
@@ -7,6 +8,8 @@ interface IAuth {
   setAuthTrue: React.Dispatch<React.SetStateAction<Boolean>>;
 }
 export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
+  const [input, setInput] = React.useState("");
+
   const signGoogleHandle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
@@ -16,13 +19,32 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
       console.error(err);
     }
   };
+  const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setInput(e.currentTarget.value);
+  };
+
   return (
     <div className="my-20">
       <p>Welcome to...</p>
       <h1 className="mb-10 text-4xl">JakubChat</h1>
-      <button onClick={() => signGoogleHandle()} className="submitButton">
-        Sign in With Google
-      </button>
+      <div>
+        <form className="m-auto flex max-w-[240px] flex-col items-center gap-3 rounded-lg border-2 border-blue-400 bg-slate-300 p-2 py-4">
+          <input
+            type="text"
+            className="max-w-[162px] rounded-md p-2 text-center shadow-md"
+            value={input}
+            placeholder="Enter your name..."
+            onChange={handleInputChange}
+          />
+          <button className="submitButton px-6">Sign in as Guest</button>
+        </form>
+        <button
+          onClick={() => signGoogleHandle()}
+          className="submitButton my-8"
+        >
+          Sign in With Google
+        </button>
+      </div>
     </div>
   );
 };
