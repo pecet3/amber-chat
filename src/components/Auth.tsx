@@ -1,6 +1,6 @@
 import React from "react";
 import { auth, provider } from "../firebase-config";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, signInAnonymously, getAuth } from "firebase/auth";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
@@ -23,12 +23,27 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
     setInput(e.currentTarget.value);
   };
 
+  const auth = getAuth();
+  const signInAnonymously = async () => {
+    try{
+      const result= await 
+    }
+  }
+
   return (
     <div className="my-20">
       <p>Welcome to...</p>
       <h1 className="mb-10 text-4xl">JakubChat</h1>
       <div>
-        <form className="m-auto flex max-w-[240px] flex-col items-center gap-3 rounded-lg border-2 border-blue-400 bg-slate-300 p-2 py-4">
+        <form
+          className="m-auto flex max-w-[240px] flex-col 
+        items-center gap-3 rounded-lg border-2
+         border-blue-400 bg-slate-300 p-2 py-4"
+          onSubmit={(e) => {
+            e.preventDefault();
+            alert(input);
+          }}
+        >
           <input
             type="text"
             className="max-w-[162px] rounded-md p-2 text-center shadow-md"
@@ -42,7 +57,7 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
           onClick={() => signGoogleHandle()}
           className="submitButton my-8"
         >
-          Sign in With Google
+          Sign in with Google
         </button>
       </div>
     </div>
