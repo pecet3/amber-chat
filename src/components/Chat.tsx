@@ -90,14 +90,19 @@ export const Chat: React.FC<IChat> = ({ room }) => {
                   : "bg-blue-200"
               }`}
             >
-              <div className="m-auto flex basis-2/12 flex-col items-center self-start align-top font-serif text-sm text-slate-700">
+              <div
+                key={nanoid()}
+                className="m-auto flex basis-2/12 flex-col items-center self-start align-top font-serif text-sm text-slate-700"
+              >
                 <img
+                  key={nanoid()}
                   src={message.photo}
                   className="h-8 w-8 rounded-full shadow-xl"
                 />
                 {message.user !== "" && message.user}
               </div>
               <p
+                key={nanoid()}
                 className={`basis-8/12 break-before-right self-center text-lg ${
                   message.user === auth.currentUser?.displayName
                     ? "text-right"
@@ -106,11 +111,11 @@ export const Chat: React.FC<IChat> = ({ room }) => {
               >
                 {message.text !== "" && message.text}
               </p>
-              <p className="m-0 basis-2/12 self-end text-xs">
+              <p className="m-0 basis-2/12 self-end text-xs" key={nanoid()}>
                 {message.date !== "" && message.date}
               </p>
-              <div ref={scroll} key={nanoid()}></div>
             </div>
+            <div ref={scroll} key={nanoid()}></div>
           </>
         ))}
       </div>
