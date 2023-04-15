@@ -23,13 +23,6 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
     setInput(e.currentTarget.value);
   };
 
-  const auth = getAuth();
-  const signInAnonymously = async () => {
-    try{
-      const result= await 
-    }
-  }
-
   return (
     <div className="my-20">
       <p>Welcome to...</p>
