@@ -15,6 +15,7 @@ export type TLoginData = {
 };
 export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
   const [user, setUser] = React.useState<User | null>(null);
+  const [click, setClick] = React.useState(false);
 
   React.useEffect(() => {
     console.log(user);
@@ -34,8 +35,18 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
   return (
     <>
       <Header />
-      <Register setAuthTrue={setAuthTrue} user={user} setUser={setUser} />
-      <LogIn setAuthTrue={setAuthTrue} user={user} setUser={setUser} />
+      {click ? (
+        <LogIn setAuthTrue={setAuthTrue} user={user} setUser={setUser} />
+      ) : (
+        <Register setAuthTrue={setAuthTrue} user={user} setUser={setUser} />
+      )}
+
+      <button
+        className="submitButton my-8"
+        onClick={() => setClick((prev) => (prev = !prev))}
+      >
+        I have an account
+      </button>
       <GoogleAuth setAuthTrue={setAuthTrue} />
     </>
   );
