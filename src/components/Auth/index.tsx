@@ -14,7 +14,7 @@ export type TLoginData = {
   email: string;
   password: string;
 };
-export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
+export const Auth: React.FC = () => {
   const [user, setUser] = React.useState<User | null>(null);
   const [click, setClick] = React.useState(false);
 
@@ -32,7 +32,8 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
   return (
     <>
       <Header />
-      <Anonymous setAuthTrue={setAuthTrue} />
+      <Anonymous />
+      <p className="mt-12">or...</p>
       {click ? (
         <LogIn setAuthTrue={setAuthTrue} />
       ) : (
@@ -45,7 +46,7 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
       >
         I have an account
       </button>
-      <GoogleAuth setAuthTrue={setAuthTrue} />
+      <GoogleAuth />
     </>
   );
 };
