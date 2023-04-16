@@ -90,7 +90,8 @@ export const Chat: React.FC<IChat> = ({ room }) => {
             <div
               key={nanoid()}
               className={`my-2 flex items-end justify-between gap-4 rounded-2xl p-2 shadow-lg ${
-                message.user === auth.currentUser?.displayName
+                message.user === auth.currentUser?.displayName ||
+                message.user === anonymousUser
                   ? "flex-row-reverse bg-blue-300 "
                   : "bg-blue-200"
               }`}
@@ -113,7 +114,8 @@ export const Chat: React.FC<IChat> = ({ room }) => {
               <p
                 key={nanoid()}
                 className={`basis-8/12 break-before-right self-center text-lg ${
-                  message.user === auth.currentUser?.displayName
+                  message.user === auth.currentUser?.displayName ||
+                  message.user === anonymousUser
                     ? "text-right"
                     : "text-left"
                 }`}
