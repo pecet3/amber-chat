@@ -1,26 +1,65 @@
 import React from "react";
 import { auth, provider } from "../firebase-config";
-import { signInWithPopup, signInAnonymously, getAuth } from "firebase/auth";
+import {
+  signInWithPopup,
+  signInAnonymously,
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 interface IAuth {
   setAuthTrue: React.Dispatch<React.SetStateAction<Boolean>>;
 }
+export type TLoginData = {
+  email: string;
+  password: string;
+};
 export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
-  const [input, setInput] = React.useState("");
+  const [loginEmailInput, setLoginEmailInput] = React.useState("");
+  const [loginPasswordInput, setLoginPasswordInput] = React.useState("");
+  const [registerEmailInput, setRegisterEmailInput] = React.useState("");
+  const [registerPasswordInput, setRegisterPasswordInput] = React.useState("");
 
   const signGoogleHandle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       cookies.set("auth-token", result.user.refreshToken);
-      setAuthTrue((prev) => (prev = true));
+      setAuthTrue(true);
     } catch (err) {
       console.error(err);
     }
   };
-  const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setInput(e.currentTarget.value);
+  const registerEmailOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setRegisterEmailInput(e.currentTarget.value);
+  };
+  const registerPasswordOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setRegisterPasswordInput(e.currentTarget.value);
+  };
+
+  const signInAsGuestHandle = async () => {
+    try {
+      const result = await signInAnonymously(auth);
+
+      console.log(result);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const register = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        registerEmailInput,
+        registerPasswordInput
+      );
+      console.log(user);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -34,24 +73,25 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
          border-blue-400 bg-slate-300 p-2 py-4"
           onSubmit={(e) => {
             e.preventDefault();
-            alert(input);
+            register();
           }}
         >
+          <legend>Don't have an account? Register now!</legend>
           <input
             type="text"
             className="max-w-[162px] rounded-md p-2 text-center shadow-md"
-            value={input}
-            placeholder="Enter your name..."
-            onChange={handleInputChange}
+            value={registerEmailInput}
+            placeholder="Enter your email"
+            onChange={registerEmailOnChange}
           />
           <input
-            type="text"
+            type="password"
             className="max-w-[162px] rounded-md p-2 text-center shadow-md"
-            value={input}
+            value={registerPasswordInput}
             placeholder="Your password"
-            onChange={handleInputChange}
+            onChange={registerPasswordOnChange}
           />
-          <button className="submitButton px-6">Log In</button>
+          <button className="submitButton px-6">Register</button>
         </form>
         <form
           className="m-auto flex max-w-[240px] flex-col 
@@ -59,24 +99,29 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
          border-blue-400 bg-slate-300 p-2 py-4"
           onSubmit={(e) => {
             e.preventDefault();
-            alert(input);
           }}
         >
           <input
             type="text"
             className="max-w-[162px] rounded-md p-2 text-center shadow-md"
-            value={input}
+            value={loginEmailInput}
             placeholder="Enter your name..."
-            onChange={handleInputChange}
+            onChange={() => console.log("Enter your email")}
           />
           <input
             type="text"
             className="max-w-[162px] rounded-md p-2 text-center shadow-md"
-            value={input}
-            placeholder="Your password"
-            onChange={handleInputChange}
+            value={loginPasswordInput}
+            placeholder="Enter your name..."
+            onChange={() => console.log("Enter your password")}
           />
-          <button className="submitButton px-6">Register</button>
+
+          <button
+            className="submitButton px-6"
+            onClick={() => signInAsGuestHandle()}
+          >
+            as guest
+          </button>
         </form>
         <button
           onClick={() => signGoogleHandle()}
