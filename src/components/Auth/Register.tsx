@@ -69,7 +69,7 @@ export const Register: React.FC<IRegister> = ({
         className="max-w-[162px] rounded-md p-2 text-center shadow-md"
         name="email"
         value={registerInput.email}
-        placeholder="Enter your email"
+        placeholder="Enter your email,"
         onChange={registerOnChange}
       />
       <input
@@ -77,7 +77,7 @@ export const Register: React.FC<IRegister> = ({
         name="password"
         className="max-w-[162px] rounded-md p-2 text-center shadow-md"
         value={registerInput.password}
-        placeholder="Your password"
+        placeholder="password"
         onChange={registerOnChange}
       />
       <button className="submitButton px-6">Register</button>
