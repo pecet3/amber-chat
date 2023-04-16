@@ -12,13 +12,25 @@ export type TContext = {
   room: string;
   setRoom: React.Dispatch<React.SetStateAction<string>>;
   setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
+  anonymousUser: string;
+  setAnonymousUser: React.Dispatch<React.SetStateAction<string>>;
 };
 export const ChatContextProvider: React.FC<IProvider> = ({ children }) => {
   const [isAuth, setIsAuth] = React.useState(!!cookies.get("auth-token"));
   const [room, setRoom] = React.useState("");
+  const [anonymousUser, setAnonymousUser] = React.useState("uknown");
 
   return (
-    <Context.Provider value={{ isAuth, room, setRoom, setIsAuth }}>
+    <Context.Provider
+      value={{
+        isAuth,
+        room,
+        setRoom,
+        setIsAuth,
+        anonymousUser,
+        setAnonymousUser,
+      }}
+    >
       {children}
     </Context.Provider>
   );
