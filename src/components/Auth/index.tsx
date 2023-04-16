@@ -1,11 +1,10 @@
 import React from "react";
 import { auth, provider } from "../../firebase-config";
 import {
-  signInWithPopup,
   signInAnonymously,
   onAuthStateChanged,
-  GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   signOut,
   User,
 } from "firebase/auth";
@@ -48,6 +47,23 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
       [e.target.name]: e.target.value,
     });
   };
+  const loginEmailOnChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
+    setLoginInput({
+      ...loginInput,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const loginPasswordOnChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
+    setLoginInput({
+      ...loginInput,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   React.useEffect(() => {
     console.log(user);
@@ -65,10 +81,23 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
       console.error(err);
     }
   };
+  const logIn = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(
+        auth,
+        loginInput.email,
+        loginInput.password
+      );
+      console.log(user);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const logOut = async () => {
     await signOut(auth);
   };
+
   React.useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -116,23 +145,25 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
          border-blue-400 bg-slate-300 p-2 py-4"
           onSubmit={(e) => {
             e.preventDefault();
+            logIn();
           }}
         >
+          <legend>Do you have an account? Log in, now!</legend>
           <input
             type="text"
             className="max-w-[162px] rounded-md p-2 text-center shadow-md"
             value={loginInput.email}
             placeholder="Enter your name..."
-            name="loginEmail"
-            onChange={() => console.log("Enter your email")}
+            name="email"
+            onChange={loginPasswordOnChange}
           />
           <input
-            type="text"
+            type="password"
             className="max-w-[162px] rounded-md p-2 text-center shadow-md"
             value={loginInput.password}
-            name="loginPassword"
-            placeholder="Enter your name..."
-            onChange={() => console.log("Enter your password")}
+            name="password"
+            placeholder="your password"
+            onChange={loginPasswordOnChange}
           />
 
           <button className="submitButton px-6" onClick={() => console.log()}>
