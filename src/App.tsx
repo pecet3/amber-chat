@@ -4,7 +4,7 @@ import { Chat } from "./components/Chat";
 import "./App.css";
 import Cookies from "universal-cookie";
 import PickARoom from "./components/PickARoom";
-import Context, { ChatContextProvider, TContext } from "./ChatContext";
+import Context, { TContext } from "./ChatContext";
 const cookies = new Cookies();
 
 function App() {
@@ -14,13 +14,13 @@ function App() {
   if (!isAuth) {
     return (
       <div className="App">
-        <Auth setAuthTrue={() => setIsAuth(true)} />
+        <Auth />
       </div>
     );
   }
   return (
     <>
-      <div className="">{room ? <Chat room={room} /> : <PickARoom />}</div>
+      <main className="">{room ? <Chat room={room} /> : <PickARoom />}</main>
     </>
   );
 }
