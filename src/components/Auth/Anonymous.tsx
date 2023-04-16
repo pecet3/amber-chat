@@ -1,20 +1,20 @@
 import React from "react";
-import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
+import { signInAnonymously } from "firebase/auth";
 import { auth } from "../../firebase-config";
 import Cookies from "universal-cookie";
 import { IAuth } from "./index";
 import Context, { TContext } from "../../ChatContext";
 
 const cookies = new Cookies();
-export const Anonymous: React.FC<IAuth> = ({ setAuthTrue }) => {
+export const Anonymous: React.FC = () => {
   const [nameInput, setNameInput] = React.useState("");
-  const { setAnonymousUser } = React.useContext(Context) as TContext;
+  const { setAnonymousUser, setIsAuth } = React.useContext(Context) as TContext;
 
   const getIn = async () => {
     try {
       const result = await signInAnonymously(auth);
       cookies.set("auth-token", result.user.refreshToken);
-      setAuthTrue(true);
+      setIsAuth(true);
     } catch (err) {
       console.error(err);
     }
@@ -22,10 +22,10 @@ export const Anonymous: React.FC<IAuth> = ({ setAuthTrue }) => {
 
   return (
     <form
-      className="my-12 flex justify-center"
+      className="flex justify-center"
       onSubmit={(e) => {
-        if (nameInput === "") return;
         e.preventDefault();
+        if (nameInput === "") return;
         getIn();
         setAnonymousUser(nameInput);
       }}
@@ -36,6 +36,7 @@ export const Anonymous: React.FC<IAuth> = ({ setAuthTrue }) => {
         className="inputElement"
         placeholder="Enter your name..."
         value={nameInput}
+        autoFocus={true}
         onChange={(e) => setNameInput(([e.target.name] = e.target.value))}
       />
       <button className="submitButton">Get In</button>
