@@ -3,14 +3,16 @@ import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../firebase-config";
 import Cookies from "universal-cookie";
 import { IAuth } from "./index";
+import Context, { TContext } from "../../ChatContext";
 const cookies = new Cookies();
 
-export const GoogleAuth: React.FC<IAuth> = ({ setAuthTrue }) => {
+export const GoogleAuth: React.FC = () => {
+  const { setIsAuth } = React.useContext(Context) as TContext;
   const signGoogleHandle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       cookies.set("auth-token", result.user.refreshToken);
-      setAuthTrue(true);
+      setIsAuth(true);
     } catch (err) {
       console.error(err);
     }
