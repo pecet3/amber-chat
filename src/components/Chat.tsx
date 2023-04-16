@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
+import Context, { TContext } from "../ChatContext";
 import { nanoid } from "nanoid";
 import {
   addDoc,
@@ -19,13 +20,14 @@ export const Chat: React.FC<IChat> = ({ room }) => {
   const [messages, setMessages] = useState([
     {
       text: "",
-      user: "",
+      user: "unknown",
       createdAt: "",
       photo: "",
       date: "",
       email: "",
     },
   ]);
+  const { anonymousUser } = useContext(Context) as TContext;
   const inputRef = useRef<HTMLInputElement>(null);
   const scroll = useRef<HTMLDivElement>(null);
   const messagesRef = collection(db, "messages");
@@ -51,12 +53,13 @@ export const Chat: React.FC<IChat> = ({ room }) => {
     event.preventDefault();
     if (newMessage === "") return;
 
+    if (!auth.currentUser) return;
     await addDoc(messagesRef, {
       text: newMessage,
       createdAt: serverTimestamp(),
-      user: auth.currentUser ? auth.currentUser.displayName : "unknown",
-      photo: auth.currentUser ? auth.currentUser.photoURL : "",
-      email: auth.currentUser ? auth.currentUser.email : "",
+      user: auth.currentUser.displayName || anonymousUser,
+      photo: auth.currentUser.photoURL || "",
+      email: auth.currentUser.email || "",
       date: new Date().toLocaleDateString(undefined, {
         day: "numeric",
         month: "long",
