@@ -38,12 +38,13 @@ export const LogIn: React.FC<ILogin> = ({ setAuthTrue, user, setUser }) => {
 
   const logIn = async () => {
     try {
-      const user = await signInWithEmailAndPassword(
+      const result = await signInWithEmailAndPassword(
         auth,
         loginInput.email,
         loginInput.password
       );
       setAuthTrue(true);
+      cookies.set("auth-token", result.user.refreshToken);
     } catch (err) {
       console.error(err);
     }
