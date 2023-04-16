@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useContext } from "react";
-import { Auth } from "./components/Auth";
+import { Auth } from "./components/Auth/index";
 import { Chat } from "./components/Chat";
 import "./App.css";
 import Cookies from "universal-cookie";
