@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  signOut,
   User,
 } from "firebase/auth";
 import Cookies from "universal-cookie";
@@ -29,7 +30,7 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
     password: "",
   });
 
-  const [user, setUser] = React.useState({});
+  const [user, setUser] = React.useState<User | null>(null);
 
   const registerEmailOnChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -65,6 +66,16 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
     }
   };
 
+  const logOut = async () => {
+    await signOut(auth);
+  };
+  React.useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unSubscribe();
+  }, []);
   return (
     <div className="my-20">
       <p>Welcome to...</p>
@@ -98,7 +109,7 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
           />
           <button className="submitButton px-6">Register</button>
         </form>
-
+        <h1 className="text-4xl">{user && user.email}</h1>
         <form
           className="m-auto flex max-w-[240px] flex-col 
           items-center gap-3 rounded-lg border-2
