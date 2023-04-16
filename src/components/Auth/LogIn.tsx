@@ -1,27 +1,15 @@
 import React from "react";
-import { auth, provider } from "../../firebase-config";
-import {
-  signInAnonymously,
-  onAuthStateChanged,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  User,
-} from "firebase/auth";
+import { auth } from "../../firebase-config";
+import { signInWithEmailAndPassword, signOut, User } from "firebase/auth";
+import { IAuth } from "./index";
 import Cookies from "universal-cookie";
-import { GoogleAuth } from "./GoogleAuth";
 const cookies = new Cookies();
 
 export type TLoginData = {
   email: string;
   password: string;
 };
-export interface ILogin {
-  setAuthTrue: React.Dispatch<React.SetStateAction<Boolean>>;
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
-}
-export const LogIn: React.FC<ILogin> = ({ setAuthTrue, user, setUser }) => {
+export const LogIn: React.FC<IAuth> = ({ setAuthTrue }) => {
   const [loginInput, setLoginInput] = React.useState({
     email: "",
     password: "",
@@ -67,7 +55,7 @@ export const LogIn: React.FC<ILogin> = ({ setAuthTrue, user, setUser }) => {
       <legend>Do you have an account? Log in, now!</legend>
       <input
         type="text"
-        className="max-w-[162px] rounded-md p-2 text-center shadow-md"
+        className="inputElement"
         value={loginInput.email}
         placeholder="Enter your name,"
         name="email"
@@ -75,7 +63,7 @@ export const LogIn: React.FC<ILogin> = ({ setAuthTrue, user, setUser }) => {
       />
       <input
         type="password"
-        className="max-w-[162px] rounded-md p-2 text-center shadow-md"
+        className="inputElement"
         value={loginInput.password}
         name="password"
         placeholder="your password"
