@@ -19,11 +19,14 @@ export type TLoginData = {
   password: string;
 };
 export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
-  const [loginEmailInput, setLoginEmailInput] = React.useState("");
-  const [loginPasswordInput, setLoginPasswordInput] = React.useState("");
-  const [registerEmailInput, setRegisterEmailInput] = React.useState("");
-  const [registerPasswordInput, setRegisterPasswordInput] = React.useState("");
-  const [user, setUser] = React.useState<User | null>(null);
+  const [loginInput, setLoginInput] = React.useState({
+    email: "",
+    password: "",
+  });
+  const [registerInput, setRegisterInput] = React.useState<TLoginData>({
+    email: "",
+    password: "",
+  });
 
   const signGoogleHandle = async () => {
     try {
@@ -34,28 +37,39 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
       console.error(err);
     }
   };
-  const registerEmailOnChange = (e: React.FormEvent<HTMLInputElement>) => {
-    e.currentTarget.value && setRegisterEmailInput(e.currentTarget.value);
+  const registerEmailOnChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
+    setRegisterInput({
+      ...registerInput,
+      [e.target.name]: e.target.value,
+    });
   };
-  const registerPasswordOnChange = (e: React.FormEvent<HTMLInputElement>) => {
-    e.currentTarget.value && setRegisterPasswordInput(e.currentTarget.value);
+  const registerPasswordOnChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setRegisterInput({
+      ...registerInput,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(
         auth,
-        registerEmailInput,
-        registerPasswordInput
+        registerInput.email,
+        registerInput.password
       );
       console.log(user);
     } catch (err) {
       console.error(err);
     }
   };
-  // onAuthStateChanged(auth, (currentUser) => {
-  //   setUser((prev) => (prev = currentUser));
-  // });
+  // auth &&
+  //   onAuthStateChanged(auth, (currentUser) => {
+  //     setUser((prev) => (prev = currentUser));
+  //   });
   return (
     <div className="my-20">
       <p>Welcome to...</p>
@@ -73,14 +87,16 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
           <input
             type="text"
             className="max-w-[162px] rounded-md p-2 text-center shadow-md"
-            value={registerEmailInput}
+            name="email"
+            value={registerInput.email}
             placeholder="Enter your email"
             onChange={registerEmailOnChange}
           />
           <input
             type="password"
+            name="password"
             className="max-w-[162px] rounded-md p-2 text-center shadow-md"
-            value={registerPasswordInput}
+            value={registerInput.password}
             placeholder="Your password"
             onChange={registerPasswordOnChange}
           />
@@ -89,7 +105,7 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
 
         <form
           className="m-auto flex max-w-[240px] flex-col 
-        items-center gap-3 rounded-lg border-2
+          items-center gap-3 rounded-lg border-2
          border-blue-400 bg-slate-300 p-2 py-4"
           onSubmit={(e) => {
             e.preventDefault();
@@ -98,14 +114,16 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
           <input
             type="text"
             className="max-w-[162px] rounded-md p-2 text-center shadow-md"
-            value={loginEmailInput}
+            value={loginInput.email}
             placeholder="Enter your name..."
+            name="loginEmail"
             onChange={() => console.log("Enter your email")}
           />
           <input
             type="text"
             className="max-w-[162px] rounded-md p-2 text-center shadow-md"
-            value={loginPasswordInput}
+            value={loginInput.password}
+            name="loginPassword"
             placeholder="Enter your name..."
             onChange={() => console.log("Enter your password")}
           />
