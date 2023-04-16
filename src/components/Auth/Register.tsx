@@ -1,32 +1,11 @@
 import React from "react";
-import { auth, provider } from "../../firebase-config";
-import {
-  signInAnonymously,
-  onAuthStateChanged,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  User,
-} from "firebase/auth";
+import { auth } from "../../firebase-config";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import Cookies from "universal-cookie";
-import { GoogleAuth } from "./GoogleAuth";
-import { LogIn } from "./LogIn";
+import { IAuth, TLoginData } from "./index";
 const cookies = new Cookies();
 
-export interface IRegister {
-  setAuthTrue: React.Dispatch<React.SetStateAction<Boolean>>;
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
-}
-export type TLoginData = {
-  email: string;
-  password: string;
-};
-export const Register: React.FC<IRegister> = ({
-  setAuthTrue,
-  user,
-  setUser,
-}) => {
+export const Register: React.FC<IAuth> = ({ setAuthTrue }) => {
   const [registerInput, setRegisterInput] = React.useState<TLoginData>({
     email: "",
     password: "",
