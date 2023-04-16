@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  User,
 } from "firebase/auth";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
@@ -22,6 +23,7 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
   const [loginPasswordInput, setLoginPasswordInput] = React.useState("");
   const [registerEmailInput, setRegisterEmailInput] = React.useState("");
   const [registerPasswordInput, setRegisterPasswordInput] = React.useState("");
+  const [user, setUser] = React.useState<User | null>(null);
 
   const signGoogleHandle = async () => {
     try {
@@ -33,20 +35,10 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
     }
   };
   const registerEmailOnChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setRegisterEmailInput(e.currentTarget.value);
+    e.currentTarget.value && setRegisterEmailInput(e.currentTarget.value);
   };
   const registerPasswordOnChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setRegisterPasswordInput(e.currentTarget.value);
-  };
-
-  const signInAsGuestHandle = async () => {
-    try {
-      const result = await signInAnonymously(auth);
-
-      console.log(result);
-    } catch (err) {
-      console.error(err);
-    }
+    e.currentTarget.value && setRegisterPasswordInput(e.currentTarget.value);
   };
 
   const register = async () => {
@@ -61,7 +53,9 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
       console.error(err);
     }
   };
-
+  // onAuthStateChanged(auth, (currentUser) => {
+  //   setUser((prev) => (prev = currentUser));
+  // });
   return (
     <div className="my-20">
       <p>Welcome to...</p>
@@ -73,10 +67,9 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
          border-blue-400 bg-slate-300 p-2 py-4"
           onSubmit={(e) => {
             e.preventDefault();
-            register();
           }}
         >
-          <legend>Don't have an account? Register now!</legend>
+          <legend>Don't have an account? Register here!</legend>
           <input
             type="text"
             className="max-w-[162px] rounded-md p-2 text-center shadow-md"
@@ -93,6 +86,7 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
           />
           <button className="submitButton px-6">Register</button>
         </form>
+
         <form
           className="m-auto flex max-w-[240px] flex-col 
         items-center gap-3 rounded-lg border-2
@@ -116,11 +110,8 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
             onChange={() => console.log("Enter your password")}
           />
 
-          <button
-            className="submitButton px-6"
-            onClick={() => signInAsGuestHandle()}
-          >
-            as guest
+          <button className="submitButton px-6" onClick={() => console.log()}>
+            Log In
           </button>
         </form>
         <button
