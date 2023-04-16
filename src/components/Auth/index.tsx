@@ -5,6 +5,7 @@ import { GoogleAuth } from "./GoogleAuth";
 import { LogIn } from "./LogIn";
 import { Register } from "./Register";
 import { Header } from "../../common/Header";
+import { Anonymous } from "./Anonymous";
 
 export interface IAuth {
   setAuthTrue: React.Dispatch<React.SetStateAction<Boolean>>;
@@ -35,10 +36,11 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
   return (
     <>
       <Header />
+      <Anonymous setAuthTrue={setAuthTrue} />
       {click ? (
-        <LogIn setAuthTrue={setAuthTrue} user={user} setUser={setUser} />
+        <LogIn setAuthTrue={setAuthTrue} />
       ) : (
-        <Register setAuthTrue={setAuthTrue} user={user} setUser={setUser} />
+        <Register setAuthTrue={setAuthTrue} />
       )}
 
       <button
