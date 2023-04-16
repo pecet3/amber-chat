@@ -1,5 +1,6 @@
 import React from "react";
 import Context, { TContext } from "../ChatContext";
+import { LogOutButton } from "../common/LogOutButton";
 
 const PickARoom = () => {
   const [selectValue, setSelectValue] = React.useState("#room1");
@@ -29,6 +30,7 @@ const PickARoom = () => {
           Enter
         </button>
       </form>
+      <LogOutButton />
     </div>
   );
 };
