@@ -44,7 +44,39 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
             placeholder="Enter your name..."
             onChange={handleInputChange}
           />
-          <button className="submitButton px-6">Sign in as Guest</button>
+          <input
+            type="text"
+            className="max-w-[162px] rounded-md p-2 text-center shadow-md"
+            value={input}
+            placeholder="Your password"
+            onChange={handleInputChange}
+          />
+          <button className="submitButton px-6">Log In</button>
+        </form>
+        <form
+          className="m-auto flex max-w-[240px] flex-col 
+        items-center gap-3 rounded-lg border-2
+         border-blue-400 bg-slate-300 p-2 py-4"
+          onSubmit={(e) => {
+            e.preventDefault();
+            alert(input);
+          }}
+        >
+          <input
+            type="text"
+            className="max-w-[162px] rounded-md p-2 text-center shadow-md"
+            value={input}
+            placeholder="Enter your name..."
+            onChange={handleInputChange}
+          />
+          <input
+            type="text"
+            className="max-w-[162px] rounded-md p-2 text-center shadow-md"
+            value={input}
+            placeholder="Your password"
+            onChange={handleInputChange}
+          />
+          <button className="submitButton px-6">Register</button>
         </form>
         <button
           onClick={() => signGoogleHandle()}
