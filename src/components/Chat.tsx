@@ -98,7 +98,11 @@ export const Chat: React.FC<IChat> = ({ room }) => {
               >
                 <img
                   key={nanoid()}
-                  src={message.photo}
+                  src={
+                    message.photo
+                      ? message.photo
+                      : "https://64.media.tumblr.com/a533c580186c71848594ec0f904f340b/tumblr_n9ls4zFR9P1qzq5pio1_640.jpg"
+                  }
                   className="h-8 w-8 rounded-full shadow-xl"
                 />
                 {message.user ? message.user : message.email}
