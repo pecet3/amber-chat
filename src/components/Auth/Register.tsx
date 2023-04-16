@@ -41,12 +41,13 @@ export const Register: React.FC<IRegister> = ({
 
   const register = async () => {
     try {
-      const user = await createUserWithEmailAndPassword(
+      const result = await createUserWithEmailAndPassword(
         auth,
         registerInput.email,
         registerInput.password
       );
       setAuthTrue(true);
+      cookies.set("auth-token", result.user.refreshToken);
     } catch (err) {
       console.error(err);
     }
