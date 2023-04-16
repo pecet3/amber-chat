@@ -23,6 +23,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
       createdAt: "",
       photo: "",
       date: "",
+      email: "",
     },
   ]);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -53,8 +54,9 @@ export const Chat: React.FC<IChat> = ({ room }) => {
     await addDoc(messagesRef, {
       text: newMessage,
       createdAt: serverTimestamp(),
-      user: auth.currentUser ? auth.currentUser.displayName : "",
+      user: auth.currentUser ? auth.currentUser.displayName : "unknown",
       photo: auth.currentUser ? auth.currentUser.photoURL : "",
+      email: auth.currentUser ? auth.currentUser.email : "",
       date: new Date().toLocaleDateString(undefined, {
         day: "numeric",
         month: "long",
@@ -99,7 +101,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
                   src={message.photo}
                   className="h-8 w-8 rounded-full shadow-xl"
                 />
-                {message.user !== "" && message.user}
+                {message.user ? message.user : message.email}
               </div>
               <p
                 key={nanoid()}
