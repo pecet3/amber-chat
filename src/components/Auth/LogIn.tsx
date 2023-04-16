@@ -55,39 +55,36 @@ export const LogIn: React.FC<ILogin> = ({ setAuthTrue, user, setUser }) => {
   };
 
   return (
-    <div className="my-20">
-      <form
-        className="m-auto flex max-w-[240px] flex-col 
+    <form
+      className="m-auto flex max-w-[240px] flex-col 
           items-center gap-3 rounded-lg border-2
          border-blue-400 bg-slate-300 p-2 py-4"
-        onSubmit={(e) => {
-          e.preventDefault();
-          logIn();
-        }}
-      >
-        <legend>Do you have an account? Log in, now!</legend>
-        <input
-          type="text"
-          className="max-w-[162px] rounded-md p-2 text-center shadow-md"
-          value={loginInput.email}
-          placeholder="Enter your name..."
-          name="email"
-          onChange={loginOnChange}
-        />
-        <input
-          type="password"
-          className="max-w-[162px] rounded-md p-2 text-center shadow-md"
-          value={loginInput.password}
-          name="password"
-          placeholder="your password"
-          onChange={loginOnChange}
-        />
+      onSubmit={(e) => {
+        e.preventDefault();
+        logIn();
+      }}
+    >
+      <legend>Do you have an account? Log in, now!</legend>
+      <input
+        type="text"
+        className="max-w-[162px] rounded-md p-2 text-center shadow-md"
+        value={loginInput.email}
+        placeholder="Enter your name,"
+        name="email"
+        onChange={loginOnChange}
+      />
+      <input
+        type="password"
+        className="max-w-[162px] rounded-md p-2 text-center shadow-md"
+        value={loginInput.password}
+        name="password"
+        placeholder="your password"
+        onChange={loginOnChange}
+      />
 
-        <button className="submitButton px-6" onClick={() => console.log()}>
-          Log In
-        </button>
-        {user && user.email}
-      </form>
-    </div>
+      <button className="submitButton px-6" onClick={() => console.log()}>
+        Log In
+      </button>
+    </form>
   );
 };
