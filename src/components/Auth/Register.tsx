@@ -28,7 +28,7 @@ export const Register: React.FC<IAuth> = ({ setAuthTrue }) => {
       setAuthTrue(true);
       cookies.set("auth-token", result.user.refreshToken);
     } catch (err) {
-      console.error(err);
+      alert(err);
     }
   };
 
