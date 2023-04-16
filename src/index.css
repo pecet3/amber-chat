@@ -5,11 +5,11 @@
 @layer components{
 
   .submitButton {
-    @apply p-2 mx-2 rounded-md hover:rounded-xl transition-all duration-300 bg-blue-500 text-gray-100
+    @apply p-2 mx-2 rounded-md hover:rounded-xl transition-all duration-300 bg-blue-500 text-gray-100 
   }
 
   .inputElement {
-    @apply max-w-[162px] rounded-md p-2 text-center shadow-md
+    @apply rounded-md p-2 text-center shadow-md 
   }
 
 }
