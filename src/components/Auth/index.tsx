@@ -18,10 +18,6 @@ export const Auth: React.FC<IAuth> = ({ setAuthTrue }) => {
   const [user, setUser] = React.useState<User | null>(null);
   const [click, setClick] = React.useState(false);
 
-  React.useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   const logOut = async () => {
     await signOut(auth);
   };
