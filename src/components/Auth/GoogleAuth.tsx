@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  signInWithPopup,
-  signInAnonymously,
-  onAuthStateChanged,
-  GoogleAuthProvider,
-  createUserWithEmailAndPassword,
-  User,
-} from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../firebase-config";
 import Cookies from "universal-cookie";
 import { IAuth } from "./index";
