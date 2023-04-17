@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import Cookies from "universal-cookie";
 import Context, { TContext } from "../../ChatContext";
+import { Status } from "../../common/Status";
 import { useGetAvatar } from "../useGetAvatar";
 const cookies = new Cookies();
 
@@ -16,7 +17,9 @@ export const Register: React.FC = () => {
     password: "",
     name: "",
   });
-  const { setIsAuth, user, setUser } = React.useContext(Context) as TContext;
+  const { setIsAuth, user, setUser, status, setStatus } = React.useContext(
+    Context
+  ) as TContext;
   const [isClicked, setIsClicked] = React.useState(false);
   const { avatar, getAvatar } = useGetAvatar();
 
@@ -37,7 +40,7 @@ export const Register: React.FC = () => {
       cookies.set("auth-token", result.user.refreshToken);
       setUser(result.user);
     } catch (err: any) {
-      alert(err.message || err);
+      alert(err);
       setIsClicked(false);
     }
   };
@@ -50,7 +53,7 @@ export const Register: React.FC = () => {
       });
       setIsAuth(true);
     } catch (err: any) {
-      alert(err.message || err);
+      alert(err.message);
     }
   };
 
@@ -65,7 +68,13 @@ export const Register: React.FC = () => {
               registerInput.email.length < 6 ||
               registerInput.password.length < 6
             )
-              return alert("Password and email must be at least 6 characters");
+              return setStatus(
+                (prev) =>
+                  (prev = {
+                    status: prev.status,
+                    message: "Password and email must be at least 6 characters",
+                  })
+              );
 
             setIsClicked(true);
             register();
@@ -118,6 +127,8 @@ export const Register: React.FC = () => {
           <button className="submitButton px-6">Get In</button>
         </form>
       )}
+      <p>{status.message}</p>
+      {/* <Status /> */}
     </>
   );
 };
