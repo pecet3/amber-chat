@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import Cookies from "universal-cookie";
 import Context, { TContext } from "../../ChatContext";
+import { useGetAvatar } from "../useGetAvatar";
 const cookies = new Cookies();
 
 export const Register: React.FC = () => {
@@ -17,6 +18,7 @@ export const Register: React.FC = () => {
   });
   const { setIsAuth, user, setUser } = React.useContext(Context) as TContext;
   const [isClicked, setIsClicked] = React.useState(false);
+  const { avatar, getAvatar } = useGetAvatar();
 
   const registerOnChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setRegisterInput({
@@ -44,6 +46,7 @@ export const Register: React.FC = () => {
     try {
       updateProfile(auth.currentUser as User, {
         displayName: registerInput.name,
+        photoURL: avatar.message,
       });
       setIsAuth(true);
     } catch (err: any) {
@@ -62,10 +65,11 @@ export const Register: React.FC = () => {
               registerInput.email.length < 6 ||
               registerInput.password.length < 6
             )
-              return;
+              return alert("Password and email must be at least 6 characters");
 
             setIsClicked(true);
             register();
+            getAvatar();
           }}
         >
           <legend>Register here!</legend>
@@ -86,7 +90,7 @@ export const Register: React.FC = () => {
             onChange={registerOnChange}
           />
 
-          <button className="submitButton px-6">Register</button>
+          <button className="submitButton bg-teal-500 px-6">Register</button>
         </form>
       ) : (
         <form
