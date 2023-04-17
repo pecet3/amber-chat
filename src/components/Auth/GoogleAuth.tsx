@@ -17,7 +17,7 @@ export const GoogleAuth: React.FC = () => {
     }
   };
   return (
-    <button onClick={() => signGoogleHandle()} className="submitButton my-8">
+    <button onClick={() => signGoogleHandle()} className="submitButton">
       Sign in with Google
     </button>
   );
