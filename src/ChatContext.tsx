@@ -6,6 +6,10 @@ const cookies = new Cookies();
 export interface IProvider {
   children: React.ReactNode;
 }
+export type TStatus = {
+  status: string;
+  message: string;
+};
 export type TContext = {
   signGoogleHandle?: () => Promise<void>;
   isAuth: boolean;
@@ -16,12 +20,18 @@ export type TContext = {
   setAnonymousUser: React.Dispatch<React.SetStateAction<string>>;
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  status: TStatus;
+  setStatus: React.Dispatch<React.SetStateAction<TStatus>>;
 };
 export const ChatContextProvider: React.FC<IProvider> = ({ children }) => {
   const [isAuth, setIsAuth] = React.useState(!!cookies.get("auth-token"));
   const [room, setRoom] = React.useState("");
   const [anonymousUser, setAnonymousUser] = React.useState("uknown");
   const [user, setUser] = React.useState<User | null>(null);
+  const [status, setStatus] = React.useState({
+    status: "loading",
+    message: "",
+  });
 
   return (
     <Context.Provider
@@ -34,6 +44,8 @@ export const ChatContextProvider: React.FC<IProvider> = ({ children }) => {
         setAnonymousUser,
         user,
         setUser,
+        status,
+        setStatus,
       }}
     >
       {children}
