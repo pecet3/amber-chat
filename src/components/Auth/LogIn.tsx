@@ -41,9 +41,7 @@ export const LogIn: React.FC = () => {
 
   return (
     <form
-      className="m-auto flex max-w-[240px] flex-col 
-          items-center gap-3 rounded-lg border-2
-         border-blue-400 bg-slate-300 p-2 py-4"
+      className="form"
       onSubmit={(e) => {
         e.preventDefault();
         logIn();

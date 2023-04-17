@@ -12,4 +12,10 @@
     @apply rounded-md p-2 text-center shadow-md 
   }
 
+  .form {
+    @apply m-auto flex max-w-[240px] flex-col 
+    items-center gap-3 rounded-lg border-2
+   border-blue-400 bg-slate-300 p-2 py-4
+  }
+
 }
