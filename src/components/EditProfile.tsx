@@ -1,24 +1,30 @@
 import React from "react";
-import { updateProfile, User } from "firebase/auth";
+import { updateProfile, User, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase-config";
+import Context, { TContext } from "../ChatContext";
 export const EditProfile = () => {
-  const [user, setUser] = React.useState({
+  const [inputUser, setinputUser] = React.useState({
     name: "",
   });
+  const { user, setUser } = React.useContext(Context) as TContext;
+
   const updateData = async () => {
     try {
       updateProfile(auth.currentUser as User, {
-        displayName: !!user.name ? user.name : auth.currentUser?.displayName,
+        displayName: !!inputUser.name
+          ? inputUser.name
+          : auth.currentUser?.displayName,
       });
     } catch (err) {
       alert(err);
     }
   };
+
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-    console.log(user.name);
+    setinputUser({ ...inputUser, [e.target.name]: e.target.value });
+    console.log(inputUser.name);
   };
 
   return (
@@ -35,7 +41,7 @@ export const EditProfile = () => {
           className="inputElement"
           name="name"
           onChange={onChange}
-          value={user.name}
+          value={inputUser.name}
           placeholder="Enter new name..."
         />
         <button className="submitButton">Update your profile!</button>
