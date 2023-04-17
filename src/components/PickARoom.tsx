@@ -21,7 +21,7 @@ const PickARoom = () => {
           value={selectValue}
           onChange={(e) => setSelectValue(e.currentTarget.value)}
         >
-          <option value="#room1">#room 1</option>
+          {/* <option value="#room1">#room 1</option> */}
           <option value="#dev">#dev</option>
         </select>
         <button
