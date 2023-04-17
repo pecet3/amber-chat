@@ -5,7 +5,7 @@ import Context, { TContext } from "../ChatContext";
 import { useGetAvatar } from "./useGetAvatar";
 import { HiRefresh } from "react-icons/hi";
 export const EditProfile = () => {
-  const [inputUser, setinputUser] = React.useState({
+  const [inputUser, setInputUser] = React.useState({
     name: "",
   });
   const { user, setUser } = React.useContext(Context) as TContext;
@@ -28,26 +28,32 @@ export const EditProfile = () => {
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setinputUser({ ...inputUser, [e.target.name]: e.target.value });
+    setInputUser({ ...inputUser, [e.target.name]: e.target.value });
   };
 
+  // React.useEffect(() => {
+  //   if (auth.currentUser) {
+  //     setUser(auth.currentUser);
+  //   }
+  // }, []);
+
   return (
-    <section>
+    <section className="my-10">
+      <h2 className="m-0 text-xl">Edit Your Profile</h2>
       <form
-        className="form mb-2 mt-8"
+        className="form mb-2 mt-1"
         onSubmit={(e) => {
           e.preventDefault();
           updateData();
         }}
       >
-        <legend className="text-lg">Edit Your Profile</legend>
         <input
           type="text"
           className="inputElement"
           name="name"
           onChange={onChange}
           value={inputUser.name}
-          placeholder="Enter a new name..."
+          placeholder="Change your name..."
         />
         <div className="flex flex-col rounded-lg border-2 border-teal-500 bg-slate-200 p-2">
           {!!avatar.message ? (
