@@ -34,8 +34,9 @@ export const Register: React.FC = () => {
       );
       cookies.set("auth-token", result.user.refreshToken);
       setUser(result.user);
-    } catch (err) {
-      alert(err);
+    } catch (err: any) {
+      alert(err.message || err);
+      setIsClicked(false);
     }
   };
 
@@ -45,8 +46,8 @@ export const Register: React.FC = () => {
         displayName: registerInput.name,
       });
       setIsAuth(true);
-    } catch (err) {
-      alert(err);
+    } catch (err: any) {
+      alert(err.message || err);
     }
   };
 
@@ -57,17 +58,17 @@ export const Register: React.FC = () => {
           className="form"
           onSubmit={(e) => {
             e.preventDefault();
+            if (
+              registerInput.email.length < 6 ||
+              registerInput.password.length < 6
+            )
+              return;
+
+            setIsClicked(true);
             register();
-            setIsClicked(
-              (prev) =>
-                (prev =
-                  registerInput.email && registerInput.password !== ""
-                    ? true
-                    : false)
-            );
           }}
         >
-          <legend>Don't have an account? Register here!</legend>
+          <legend>Register here!</legend>
           <input
             type="text"
             className="inputElement"
@@ -93,18 +94,20 @@ export const Register: React.FC = () => {
         items-center gap-3 rounded-lg border-2
          border-blue-400 bg-slate-300 p-2 py-4"
           onSubmit={(e) => {
+            if (registerInput.name.length < 3) return;
             e.preventDefault();
             updateDisplayName();
             setIsClicked(false);
           }}
         >
+          <legend>Enter your display name</legend>
           <input
             type="text"
             className="inputElement"
             name="name"
             maxLength={16}
             value={registerInput.name}
-            placeholder="Enter your name"
+            placeholder="here..."
             onChange={registerOnChange}
           />
 
