@@ -5,7 +5,8 @@
 @layer components{
 
   .submitButton {
-    @apply p-2 mx-2 rounded-md hover:rounded-xl transition-all duration-300 bg-blue-500 text-gray-100 
+    @apply p-2 rounded-md hover:rounded-xl transition-all 
+    duration-300 bg-blue-500 text-gray-100 
   }
 
   .inputElement {
