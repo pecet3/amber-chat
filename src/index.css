@@ -10,7 +10,7 @@
   }
 
   .inputElement {
-    @apply rounded-md p-2 text-center shadow-md 
+    @apply rounded-md p-2 text-center shadow-md w-48
   }
 
   .form {
