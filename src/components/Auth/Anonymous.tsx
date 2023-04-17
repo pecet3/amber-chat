@@ -1,8 +1,7 @@
 import React from "react";
-import { signInAnonymously } from "firebase/auth";
+import { signInAnonymously, updateProfile, User } from "firebase/auth";
 import { auth } from "../../firebase-config";
 import Cookies from "universal-cookie";
-import { IAuth } from "./index";
 import Context, { TContext } from "../../ChatContext";
 
 const cookies = new Cookies();
@@ -15,6 +14,9 @@ export const Anonymous: React.FC = () => {
       const result = await signInAnonymously(auth);
       cookies.set("auth-token", result.user.refreshToken);
       setIsAuth(true);
+      updateProfile(auth.currentUser as User, {
+        displayName: nameInput,
+      });
     } catch (err) {
       console.error(err);
     }
@@ -27,7 +29,6 @@ export const Anonymous: React.FC = () => {
         e.preventDefault();
         if (nameInput === "") return;
         getIn();
-        setAnonymousUser(nameInput);
       }}
     >
       <input
