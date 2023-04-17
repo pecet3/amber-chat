@@ -1,6 +1,6 @@
 import React from "react";
 import { auth } from "../../firebase-config";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import Cookies from "universal-cookie";
 import Context, { TContext } from "../../ChatContext";
 
@@ -11,7 +11,7 @@ export const LogIn: React.FC = () => {
     email: "",
     password: "",
   });
-  const { setIsAuth } = React.useContext(Context) as TContext;
+  const { setIsAuth, setUser, user } = React.useContext(Context) as TContext;
   const loginOnChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
@@ -35,9 +35,17 @@ export const LogIn: React.FC = () => {
     }
   };
 
-  const logOut = async () => {
-    await signOut(auth);
-  };
+  React.useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unSubscribe();
+  }, []);
+
+  React.useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   return (
     <form
