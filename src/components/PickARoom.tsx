@@ -5,7 +5,7 @@ import { EditProfile } from "./EditProfile";
 
 const PickARoom = () => {
   const [selectValue, setSelectValue] = React.useState("#room1");
-  const { setRoom } = React.useContext(Context) as TContext;
+  const { setRoom, user } = React.useContext(Context) as TContext;
   const onFormChange = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -13,7 +13,7 @@ const PickARoom = () => {
   return (
     <div className="my-64">
       <h1 className="mb-12 text-4xl">Pick a ChatRoom</h1>
-      <form onSubmit={onFormChange}>
+      <form onSubmit={onFormChange} className="flex justify-center gap-2">
         <select
           name="select-room"
           className="rounded-md bg-slate-50 px-4 py-2 shadow-lg"
@@ -25,7 +25,7 @@ const PickARoom = () => {
           <option value="#dev">#dev</option>
         </select>
         <button
-          className="submitButton px-6 shadow-lg"
+          className="submitButton bg-blue-600 px-6 shadow-lg md:hover:scale-105"
           onClick={() => setRoom(selectValue)}
         >
           Enter
@@ -33,6 +33,7 @@ const PickARoom = () => {
       </form>
       <LogOutButton />
       <EditProfile />
+      <button onClick={() => console.log(user)}>user</button>
     </div>
   );
 };
