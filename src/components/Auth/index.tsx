@@ -6,9 +6,10 @@ import { LogIn } from "./LogIn";
 import { Register } from "./Register";
 import { Header } from "../../common/Header";
 import { Anonymous } from "./Anonymous";
+import Context, { TContext } from "../../ChatContext";
 
 export const Auth: React.FC = () => {
-  const [user, setUser] = React.useState<User | null>(null);
+  const { user, setUser } = React.useContext(Context) as TContext;
   const [click, setClick] = React.useState(false);
 
   React.useEffect(() => {
@@ -18,6 +19,10 @@ export const Auth: React.FC = () => {
 
     return () => unSubscribe();
   }, []);
+
+  React.useEffect(() => {
+    console.log(user);
+  }, [user]);
   return (
     <>
       <Header />
