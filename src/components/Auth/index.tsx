@@ -1,26 +1,15 @@
 import React from "react";
 import { auth } from "../../firebase-config";
-import { onAuthStateChanged, signOut, User } from "firebase/auth";
+import { onAuthStateChanged, User } from "firebase/auth";
 import { GoogleAuth } from "./GoogleAuth";
 import { LogIn } from "./LogIn";
 import { Register } from "./Register";
 import { Header } from "../../common/Header";
 import { Anonymous } from "./Anonymous";
 
-export interface IAuth {
-  setAuthTrue: React.Dispatch<React.SetStateAction<Boolean>>;
-}
-export type TLoginData = {
-  email: string;
-  password: string;
-};
 export const Auth: React.FC = () => {
   const [user, setUser] = React.useState<User | null>(null);
   const [click, setClick] = React.useState(false);
-
-  const logOut = async () => {
-    await signOut(auth);
-  };
 
   React.useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -34,11 +23,7 @@ export const Auth: React.FC = () => {
       <Header />
       <Anonymous />
       <p className="mt-12">or...</p>
-      {click ? (
-        <LogIn setAuthTrue={setAuthTrue} />
-      ) : (
-        <Register setAuthTrue={setAuthTrue} />
-      )}
+      {click ? <LogIn /> : <Register />}
 
       <button
         className="submitButton my-8"
