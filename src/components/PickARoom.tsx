@@ -4,14 +4,14 @@ import { LogOutButton } from "../common/LogOutButton";
 import { EditProfile } from "./EditProfile";
 
 const PickARoom = () => {
-  const [selectValue, setSelectValue] = React.useState("#room1");
+  const [selectValue, setSelectValue] = React.useState("#rbi");
   const { setRoom, user } = React.useContext(Context) as TContext;
   const onFormChange = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
 
   return (
-    <div className="my-64">
+    <div className="my-12">
       <h1 className="mb-12 text-4xl">Pick a ChatRoom</h1>
       <form onSubmit={onFormChange} className="flex justify-center gap-2">
         <select
@@ -21,8 +21,9 @@ const PickARoom = () => {
           value={selectValue}
           onChange={(e) => setSelectValue(e.currentTarget.value)}
         >
-          {/* <option value="#room1">#room 1</option> */}
-          <option value="#dev">#dev</option>
+          {/* <option value="#main">#main</option> */}
+          <option value="#rbi">#rbi❤</option>
+          {/* <option value="#dev">#dev</option> */}
         </select>
         <button
           className="submitButton bg-blue-600 px-6 shadow-lg md:hover:scale-105"
@@ -31,9 +32,10 @@ const PickARoom = () => {
           Enter
         </button>
       </form>
-      <LogOutButton />
+
       <EditProfile />
-      <button onClick={() => console.log(user)}>user</button>
+      <LogOutButton />
+      {/* <button onClick={() => console.log(user)}>user</button> */}
     </div>
   );
 };
