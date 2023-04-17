@@ -17,7 +17,12 @@ export const EditProfile = () => {
   return (
     <section className="flex">
       <form>
-        <input type="text" className="inputElement" name="name" value={name} />
+        <input
+          type="text"
+          className="inputElement"
+          name="name"
+          value={name.name}
+        />
       </form>
     </section>
   );
