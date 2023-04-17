@@ -18,7 +18,10 @@ export const LogOutButton: React.FC = () => {
     }
   };
   return (
-    <button onClick={() => logOut()} className="submitButton my-6">
+    <button
+      onClick={() => logOut()}
+      className="submitButton md:text-md text-sm"
+    >
       Log Out
     </button>
   );
