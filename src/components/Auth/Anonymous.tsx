@@ -24,7 +24,7 @@ export const Anonymous: React.FC = () => {
 
   return (
     <form
-      className="flex justify-center"
+      className="flex justify-center gap-2"
       onSubmit={(e) => {
         e.preventDefault();
         if (nameInput === "") return;
@@ -40,7 +40,9 @@ export const Anonymous: React.FC = () => {
         autoFocus={true}
         onChange={(e) => setNameInput(([e.target.name] = e.target.value))}
       />
-      <button className="submitButton">Get In</button>
+      <button className="submitButton bg-blue-600 md:hover:scale-105">
+        Get In
+      </button>
     </form>
   );
 };
