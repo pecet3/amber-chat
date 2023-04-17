@@ -19,24 +19,22 @@ export const Auth: React.FC = () => {
 
     return () => unSubscribe();
   }, []);
-
-  React.useEffect(() => {
-    console.log(user);
-  }, [user]);
   return (
     <>
       <Header />
+      <p className="my-6">Log in as Guest</p>
       <Anonymous />
-      <p className="mt-12">or...</p>
+      <p className="my-6">or...</p>
       {click ? <LogIn /> : <Register />}
-
-      <button
-        className="submitButton my-8"
-        onClick={() => setClick((prev) => (prev = !prev))}
-      >
-        I have an account
-      </button>
-      <GoogleAuth />
+      <div className="my-6 flex justify-center gap-2">
+        <button
+          className="submitButton"
+          onClick={() => setClick((prev) => (prev = !prev))}
+        >
+          I have an account
+        </button>
+        <GoogleAuth />
+      </div>
     </>
   );
 };
