@@ -105,12 +105,12 @@ export const Chat: React.FC<IChat> = ({ room }) => {
               <div className="m-auto flex basis-2/12 flex-col items-center self-start align-top font-serif text-sm text-slate-700">
                 <img
                   src={message.photo ? message.photo : ""}
-                  className="h-8 w-8 rounded-full shadow-xl"
+                  className="h-10 w-10 rounded-full object-fill shadow-xl md:h-14 md:w-14"
                 />
                 {message.user ? message.user : message.email}
               </div>
               <p
-                className={`basis-8/12 break-before-right self-center text-lg ${
+                className={`basis-8/12 break-before-right self-center text-sm md:text-lg ${
                   message.user === auth.currentUser?.displayName ||
                   message.user === anonymousUser
                     ? "text-right"
