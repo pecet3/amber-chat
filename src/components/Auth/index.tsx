@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { auth } from "../../firebase-config";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { GoogleAuth } from "./GoogleAuth";
@@ -22,18 +23,40 @@ export const Auth: React.FC = () => {
   return (
     <>
       <Header />
-      <p className="my-6">Log in as Guest</p>
-      <Anonymous />
-      <p className="my-6">or...</p>
-      {click ? <LogIn /> : <Register />}
+      <motion.div
+        animate={{ x: 0, y: 0, scale: 1 }}
+        initial={{ x: -300, y: 0, scale: 0 }}
+        transition={{ duration: 0.7 }}
+      >
+        <p className="my-6">Log in as Guest</p>
+        <Anonymous />
+      </motion.div>
+
+      <motion.div
+        animate={{ x: 0, y: 0, scale: 1 }}
+        initial={{ x: 300, y: 0, scale: 0 }}
+        transition={{ duration: 0.5 }}
+        drag={true}
+      >
+        <p className="my-6">or...</p>
+        {click ? <LogIn /> : <Register />}
+      </motion.div>
       <div className="my-6 flex justify-center gap-2">
-        <button
-          className="submitButton"
-          onClick={() => setClick((prev) => (prev = !prev))}
+        <motion.div
+          animate={{ x: 0, y: 0, scale: 1 }}
+          initial={{ x: -300, y: 0, scale: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          I have an account
-        </button>
-        <GoogleAuth />
+          <GoogleAuth />
+        </motion.div>
+
+        <motion.div
+          animate={{ x: 0, y: 0, scale: 1 }}
+          initial={{ x: 300, y: 0, scale: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <GoogleAuth />
+        </motion.div>
       </div>
     </>
   );
