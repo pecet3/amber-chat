@@ -2,7 +2,6 @@ import React from "react";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../firebase-config";
 import Cookies from "universal-cookie";
-import { IAuth } from "./index";
 import Context, { TContext } from "../../ChatContext";
 const cookies = new Cookies();
 
