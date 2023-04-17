@@ -53,7 +53,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (newMessage === "") return;
-
+    if (newMessage.trim() === "") return;
     if (!auth.currentUser) return;
     await addDoc(messagesRef, {
       text: newMessage,
@@ -63,7 +63,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
         auth.currentUser.photoURL ||
         "https://xsgames.co/randomusers/avatar.php?g=pixel",
       email: auth.currentUser.email || "",
-      date: new Date().toLocaleDateString(undefined, {
+      date: new Date().toLocaleDateString("en-PL", {
         day: "numeric",
         month: "long",
         year: "numeric",
@@ -127,6 +127,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
           <div ref={scrollRef}></div>
         </div>
         <form
+          noValidate
           onSubmit={handleSubmit}
           className="m-auto my-4 flex max-w-3xl p-2"
         >
