@@ -12,11 +12,7 @@ function App() {
   const { isAuth, setIsAuth, room } = useContext(Context) as TContext;
 
   if (!isAuth) {
-    return (
-      <div className="App">
-        <Auth />
-      </div>
-    );
+    return <Auth />;
   }
   return (
     <>
