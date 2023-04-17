@@ -7,7 +7,6 @@ import {
 } from "firebase/auth";
 import Cookies from "universal-cookie";
 import Context, { TContext } from "../../ChatContext";
-import { Status } from "../../common/Status";
 import { useGetAvatar } from "../useGetAvatar";
 const cookies = new Cookies();
 
@@ -127,8 +126,6 @@ export const Register: React.FC = () => {
           <button className="submitButton px-6">Get In</button>
         </form>
       )}
-      <p>{status.message}</p>
-      {/* <Status /> */}
     </>
   );
 };
