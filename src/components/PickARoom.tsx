@@ -13,9 +13,7 @@ const PickARoom = () => {
   return (
     <div className="my-12">
       <h1 className="mb-12 text-4xl">Pick a ChatRoom</h1>
-      <h2 className="my-4 text-2xl font-bold  text-red-700">
-        Prosimy nie przeklinać!!!!
-      </h2>
+      <h2 className="my-4 text-xl text-red-700">Prosimy nie przeklinać!!!</h2>
       <form onSubmit={onFormChange} className="flex justify-center gap-2">
         <select
           name="select-room"
