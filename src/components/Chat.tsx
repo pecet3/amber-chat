@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../firebase-config";
 import { LogOutButton } from "../common/LogOutButton";
+import { BiSortDown } from "react-icons/bi";
 
 export interface IChat {
   room: string;
@@ -84,18 +85,32 @@ export const Chat: React.FC<IChat> = ({ room }) => {
   };
   return (
     <>
-      <header className="m-auto flex justify-around ">
-        <h1 id="test" className="my-6 text-2xl text-blue-400 lg:text-4xl">
-          Welcome to {room}
+      <header
+        className="sticky top-0 z-10 m-auto flex max-w-3xl flex-row-reverse 
+      items-center justify-between gap-1 rounded-lg bg-slate-200 p-1 md:static md:flex-row"
+      >
+        <h1 id="test" className="hidden text-2xl text-blue-400 md:flex">
+          {room}
         </h1>
-        <LogOutButton />
+        <span className="flex gap-1">
+          <button
+            onClick={() =>
+              scrollRef.current?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="submitButton flex"
+          >
+            <BiSortDown size="24" />
+            <p>Srcoll Down</p>
+          </button>
+          <LogOutButton />
+        </span>
       </header>
       <main>
-        <div className="m-auto h-[700px] max-w-3xl overflow-y-scroll rounded-2xl py-2">
+        <div className="m-auto flex h-[700px] max-w-3xl flex-col gap-2 overflow-y-scroll rounded-2xl py-2">
           {messages.map((message) => (
             <div
               key={nanoid()}
-              className={`my-2 flex items-end justify-between gap-4 rounded-2xl p-2 shadow-lg ${
+              className={` flex items-end justify-between gap-4 rounded-2xl p-2 shadow-sm shadow-blue-400 ${
                 message.user === auth.currentUser?.displayName ||
                 message.user === anonymousUser
                   ? "flex-row-reverse bg-blue-300 "
@@ -105,7 +120,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
               <div className="m-auto flex basis-2/12 flex-col items-center self-start align-top font-serif text-sm text-slate-700">
                 <img
                   src={message.photo ? message.photo : ""}
-                  className="h-10 w-10 rounded-full object-fill shadow-xl md:h-14 md:w-14"
+                  className="h-10 w-10 rounded-full object-fill shadow-xl lg:h-14 lg:w-14"
                 />
                 {message.user ? message.user : message.email}
               </div>
@@ -129,7 +144,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
         <form
           noValidate
           onSubmit={handleSubmit}
-          className="m-auto my-4 flex max-w-3xl p-2"
+          className="m-auto my-2 flex max-w-3xl gap-2"
         >
           <input
             placeholder="Type your message..."
@@ -137,7 +152,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
             value={newMessage}
             autoFocus={true}
             ref={inputRef}
-            className="mr-2 max-w-3xl basis-10/12 rounded-md border-2 p-3"
+            className="max-w-3xl basis-10/12 rounded-md border-2 p-3"
           />
           <button
             type="submit"
