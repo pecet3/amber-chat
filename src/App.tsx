@@ -12,13 +12,16 @@ function App() {
   const { isAuth, setIsAuth, room } = useContext(Context) as TContext;
 
   if (!isAuth) {
-    return <Auth />;
+    return (
+      <>
+        <Auth />
+        <footer className="my-24">
+          <p className="text-slate-500">Developed by Jakub Pacewicz</p>
+        </footer>
+      </>
+    );
   }
-  return (
-    <>
-      <main className="">{room ? <Chat room={room} /> : <PickARoom />}</main>
-    </>
-  );
+  return <>{room ? <Chat room={room} /> : <PickARoom />}</>;
 }
 
 export default App;
