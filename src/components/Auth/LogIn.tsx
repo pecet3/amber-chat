@@ -1,20 +1,17 @@
 import React from "react";
 import { auth } from "../../firebase-config";
-import { signInWithEmailAndPassword, signOut, User } from "firebase/auth";
-import { IAuth } from "./index";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import Cookies from "universal-cookie";
+import Context, { TContext } from "../../ChatContext";
+
 const cookies = new Cookies();
 
-export type TLoginData = {
-  email: string;
-  password: string;
-};
-export const LogIn: React.FC<IAuth> = ({ setAuthTrue }) => {
+export const LogIn: React.FC = () => {
   const [loginInput, setLoginInput] = React.useState({
     email: "",
     password: "",
   });
-
+  const { setIsAuth } = React.useContext(Context) as TContext;
   const loginOnChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
@@ -31,7 +28,7 @@ export const LogIn: React.FC<IAuth> = ({ setAuthTrue }) => {
         loginInput.email,
         loginInput.password
       );
-      setAuthTrue(true);
+      setIsAuth(true);
       cookies.set("auth-token", result.user.refreshToken);
     } catch (err) {
       console.error(err);
@@ -57,7 +54,7 @@ export const LogIn: React.FC<IAuth> = ({ setAuthTrue }) => {
         type="text"
         className="inputElement"
         value={loginInput.email}
-        placeholder="Enter your name,"
+        placeholder="Enter your name"
         name="email"
         onChange={loginOnChange}
       />
@@ -66,7 +63,7 @@ export const LogIn: React.FC<IAuth> = ({ setAuthTrue }) => {
         className="inputElement"
         value={loginInput.password}
         name="password"
-        placeholder="your password"
+        placeholder="password"
         onChange={loginOnChange}
       />
 
