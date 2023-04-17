@@ -11,7 +11,9 @@ export const LogIn: React.FC = () => {
     email: "",
     password: "",
   });
-  const { setIsAuth, setUser, user } = React.useContext(Context) as TContext;
+  const { setIsAuth, setUser, user, setStatus } = React.useContext(
+    Context
+  ) as TContext;
   const loginOnChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
@@ -42,7 +44,13 @@ export const LogIn: React.FC = () => {
       onSubmit={(e) => {
         e.preventDefault();
         if (loginInput.email.length < 6 || loginInput.password.length < 6)
-          return alert("Podano złe dane użytkownika");
+          return setStatus(
+            (prev) =>
+              (prev = {
+                status: prev.status,
+                message: "Email and Password must be at least 6 characters",
+              })
+          );
         logIn();
       }}
     >
