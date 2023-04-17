@@ -29,33 +29,24 @@ export const LogIn: React.FC = () => {
         loginInput.password
       );
       setIsAuth(true);
+      setUser(result.user);
       cookies.set("auth-token", result.user.refreshToken);
     } catch (err) {
       console.error(err);
     }
   };
 
-  React.useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-
-    return () => unSubscribe();
-  }, []);
-
-  React.useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   return (
     <form
       className="form"
       onSubmit={(e) => {
         e.preventDefault();
+        if (loginInput.email.length < 6 || loginInput.password.length < 6)
+          return alert("Podano złe dane użytkownika");
         logIn();
       }}
     >
-      <legend>Do you have an account? Log in, now!</legend>
+      <legend>Log in, here!</legend>
       <input
         type="text"
         className="inputElement"
