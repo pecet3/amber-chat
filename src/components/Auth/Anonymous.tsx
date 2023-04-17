@@ -27,7 +27,7 @@ export const Anonymous: React.FC = () => {
       className="flex justify-center gap-2"
       onSubmit={(e) => {
         e.preventDefault();
-        if (nameInput === "") return;
+        if (nameInput.length < 3) return;
         getIn();
       }}
     >
