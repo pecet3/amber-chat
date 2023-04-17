@@ -7,7 +7,7 @@ import Context, { TContext } from "../../ChatContext";
 const cookies = new Cookies();
 export const Anonymous: React.FC = () => {
   const [nameInput, setNameInput] = React.useState("");
-  const { setAnonymousUser, setIsAuth } = React.useContext(Context) as TContext;
+  const { setIsAuth } = React.useContext(Context) as TContext;
 
   const getIn = async () => {
     try {
