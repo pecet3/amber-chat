@@ -46,7 +46,6 @@ export const Auth: React.FC = () => {
           animate={{ x: 0, y: 0, scale: 1 }}
           initial={{ x: 300, y: 0, scale: 0 }}
           transition={{ duration: 0.5 }}
-          drag={true}
         >
           {status.message ? (
             <p className="my-6 text-lg text-red-900">{status.message}</p>
