@@ -13,7 +13,7 @@ import {
 import { auth, db } from "../firebase-config";
 import { LogOutButton } from "../common/LogOutButton";
 import { BiSortDown } from "react-icons/bi";
-
+import { motion } from "framer-motion";
 export interface IChat {
   room: string;
 }
