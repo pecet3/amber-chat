@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Context, { TContext } from "../../ChatContext";
 import { nanoid } from "nanoid";
 import {
@@ -45,10 +45,9 @@ export const Messages: React.FC<IMessages> = ({ scrollRef }) => {
   }, []);
 
   return (
-    <div className="m-auto flex h-auto max-w-3xl flex-col gap-2 overflow-y-scroll rounded-2xl">
-      {messages.map((message, index) => (
+    <div className="m-auto flex h-[760px] max-w-3xl flex-col gap-2 overflow-y-scroll rounded-2xl">
+      {messages.map((message) => (
         <div
-          ref={messages.length === index ? scrollRef : null}
           key={nanoid()}
           className={` flex items-end justify-between gap-4 rounded-2xl p-2 shadow-md shadow-gray-400 ${
             message.user === auth.currentUser?.displayName ||
@@ -79,7 +78,7 @@ export const Messages: React.FC<IMessages> = ({ scrollRef }) => {
           </p>
         </div>
       ))}
-      <div ref={scrollRef}></div>
+      <div ref={scrollRef} className="mt-20"></div>
     </div>
   );
 };
