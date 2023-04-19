@@ -38,7 +38,7 @@ export const Auth: React.FC = () => {
           initial={{ x: -300, y: 0, scale: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <p className="my-6">Log in as Guest</p>
+          <p className="mb-4">Log in as Guest</p>
           <Anonymous />
         </motion.div>
 
