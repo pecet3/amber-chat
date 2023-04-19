@@ -76,7 +76,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
       room,
     });
 
-    setNewMessage("");
+    setNewMessage((prev) => (prev = ""));
     inputRef.current?.focus();
   };
   const handleInputChange = (
@@ -87,10 +87,10 @@ export const Chat: React.FC<IChat> = ({ room }) => {
   return (
     <>
       <header
-        className="sticky top-0 z-10 m-auto flex max-w-3xl flex-row-reverse 
-      items-center justify-between gap-1 rounded-lg bg-stone-300 p-1 md:flex-row"
+        className="sticky top-0 z-10 m-auto flex max-w-[780px]
+      items-center justify-between gap-1 rounded-lg bg-stone-300 p-1 shadow-xl md:flex-row"
       >
-        <h1 id="test" className="hidden text-2xl text-blue-400 md:flex">
+        <h1 id="test" className="ml-2 text-lg text-blue-400 md:text-2xl">
           {room}
         </h1>
         <span className="flex gap-1">
@@ -106,12 +106,12 @@ export const Chat: React.FC<IChat> = ({ room }) => {
           <LogOutButton />
         </span>
       </header>
-      <main className="bg-slate-400">
-        <div className="m-auto flex  max-w-3xl flex-col gap-2 rounded-2xl py-2">
+      <main className=" bg-blue-100 dark:bg-slate-800">
+        <div className="m-auto  flex max-w-3xl flex-col gap-2 rounded-2xl">
           {messages.map((message) => (
             <div
               key={nanoid()}
-              className={` flex items-end justify-between gap-4 rounded-2xl p-2 shadow-sm shadow-blue-400 ${
+              className={` flex items-end justify-between gap-4 rounded-2xl p-2 shadow-md shadow-gray-400 ${
                 message.user === auth.currentUser?.displayName ||
                 message.user === anonymousUser
                   ? "flex-row-reverse bg-blue-300 "
@@ -145,7 +145,8 @@ export const Chat: React.FC<IChat> = ({ room }) => {
         <form
           noValidate
           onSubmit={handleSubmit}
-          className="sticky bottom-0 z-50 m-auto flex max-w-[780px] gap-2 rounded-md bg-stone-300 p-1 md:p-2"
+          className="sticky bottom-0 z-50 m-auto flex
+          max-w-[780px] gap-2 rounded-md bg-stone-300 p-1 shadow-xl md:p-2"
         >
           <input
             placeholder="Type your message..."
