@@ -13,6 +13,7 @@ import {
 import { auth, db } from "../firebase-config";
 import { LogOutButton } from "../common/LogOutButton";
 import { BiSortDown } from "react-icons/bi";
+
 import { motion } from "framer-motion";
 export interface IChat {
   room: string;
@@ -106,7 +107,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
         </span>
       </header>
       <main>
-        <div className="m-auto flex h-[700px] max-w-3xl flex-col gap-2 overflow-y-scroll rounded-2xl py-2">
+        <div className="m-auto flex  max-w-3xl flex-col gap-2 rounded-2xl py-2">
           {messages.map((message) => (
             <div
               key={nanoid()}
@@ -144,7 +145,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
         <form
           noValidate
           onSubmit={handleSubmit}
-          className="m-auto my-2 flex max-w-3xl gap-2"
+          className="sticky bottom-0 z-50 m-auto flex max-w-[780px] gap-2 rounded-md bg-stone-300 p-1 md:p-2"
         >
           <input
             placeholder="Type your message..."
