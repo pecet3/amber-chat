@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useRef, useContext, useMemo } from "react";
 import Context, { TContext } from "../ChatContext";
 import { nanoid } from "nanoid";
 import {
@@ -90,7 +90,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
         className="sticky top-0 z-10 m-auto flex max-w-[780px]
       items-center justify-between gap-1 rounded-lg bg-stone-300 p-1 shadow-xl md:flex-row"
       >
-        <h1 id="test" className="ml-2 text-lg text-blue-400 md:text-2xl">
+        <h1 id="test" className="ml-2 text-lg text-purple-600 md:text-2xl">
           {room}
         </h1>
         <span className="flex gap-1">
@@ -107,7 +107,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
         </span>
       </header>
       <main className=" bg-blue-100 dark:bg-slate-800">
-        <div className="m-auto  flex max-w-3xl flex-col gap-2 rounded-2xl">
+        <div className="m-auto flex h-[700px] max-w-3xl flex-col gap-2 overflow-y-scroll rounded-2xl">
           {messages.map((message) => (
             <div
               key={nanoid()}
