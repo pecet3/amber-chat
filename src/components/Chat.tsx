@@ -88,7 +88,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
     <>
       <header
         className="sticky top-0 z-10 m-auto flex max-w-3xl flex-row-reverse 
-      items-center justify-between gap-1 rounded-lg bg-slate-200 p-1 md:static md:flex-row"
+      items-center justify-between gap-1 rounded-lg bg-stone-300 p-1 md:flex-row"
       >
         <h1 id="test" className="hidden text-2xl text-blue-400 md:flex">
           {room}
@@ -106,7 +106,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
           <LogOutButton />
         </span>
       </header>
-      <main>
+      <main className="bg-slate-400">
         <div className="m-auto flex  max-w-3xl flex-col gap-2 rounded-2xl py-2">
           {messages.map((message) => (
             <div
@@ -158,7 +158,7 @@ export const Chat: React.FC<IChat> = ({ room }) => {
           <button
             type="submit"
             name="submitButton"
-            className="submitButton m-0 basis-2/12 px-4 "
+            className="submitButton m-0 basis-2/12 bg-purple-600 px-4"
           >
             Send
           </button>
