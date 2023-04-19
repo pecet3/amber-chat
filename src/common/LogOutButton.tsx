@@ -3,6 +3,7 @@ import { auth } from "../firebase-config";
 import { signOut } from "firebase/auth";
 import Context, { TContext } from "../ChatContext";
 import Cookies from "universal-cookie";
+import { MdOutlineExitToApp } from "react-icons/md";
 
 const cookies = new Cookies();
 export const LogOutButton: React.FC = () => {
@@ -20,8 +21,9 @@ export const LogOutButton: React.FC = () => {
   return (
     <button
       onClick={() => logOut()}
-      className="submitButton md:text-md text-sm"
+      className="submitButton md:text-md m-auto flex justify-center text-sm"
     >
+      <MdOutlineExitToApp size="24" />
       Log Out
     </button>
   );
