@@ -16,7 +16,16 @@ function App() {
       <>
         <Auth />
         <footer className="my-24">
-          <p className="text-slate-500">Developed by Jakub Pacewicz</p>
+          <p className="text-slate-500">Developed with ❤ by Jakub Pacewicz</p>
+          <p className="text-slate-400">
+            <a
+              href="https://github.com/pecet3"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Link to my GitHub
+            </a>
+          </p>
         </footer>
       </>
     );
