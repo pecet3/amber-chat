@@ -16,6 +16,7 @@ export const Auth: React.FC = () => {
   const [click, setClick] = React.useState(false);
 
   React.useEffect(() => {
+    window.scrollTo(0, 0);
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setStatus(
@@ -29,6 +30,7 @@ export const Auth: React.FC = () => {
 
     return () => unSubscribe();
   }, []);
+
   return (
     <>
       <Header />
@@ -39,6 +41,7 @@ export const Auth: React.FC = () => {
           transition={{ duration: 0.7 }}
         >
           <p className="mb-4">Log in as Guest</p>
+
           <Anonymous />
         </motion.div>
 
@@ -54,7 +57,8 @@ export const Auth: React.FC = () => {
           )}
           {click ? <LogIn /> : <Register />}
         </motion.div>
-        <div className="my-6 flex justify-center gap-2">
+
+        <div className="mt-10 flex justify-center gap-2">
           <motion.div
             animate={{ x: 0, y: 0, scale: 1 }}
             initial={{ x: -300, y: 0, scale: 0 }}
