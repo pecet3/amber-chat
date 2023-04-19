@@ -25,7 +25,7 @@ export const Anonymous: React.FC = () => {
   return (
     <>
       <form
-        className="flex justify-center gap-2"
+        className="m-auto flex flex-col items-center gap-4"
         onSubmit={(e) => {
           e.preventDefault();
           if (nameInput.length < 3)
@@ -48,7 +48,7 @@ export const Anonymous: React.FC = () => {
           autoFocus={true}
           onChange={(e) => setNameInput(([e.target.name] = e.target.value))}
         />
-        <button className="submitButton bg-blue-600 md:hover:scale-105">
+        <button className="submitButton bg-blue-600 px-6 md:hover:scale-105">
           Get In
         </button>
       </form>
