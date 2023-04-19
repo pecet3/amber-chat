@@ -48,7 +48,7 @@ export const Anonymous: React.FC = () => {
           autoFocus={true}
           onChange={(e) => setNameInput(([e.target.name] = e.target.value))}
         />
-        <button className="submitButton bg-blue-600 px-6 md:hover:scale-105">
+        <button className="submitButton bg-purple-600 px-6 text-lg md:hover:scale-105">
           Get In
         </button>
       </form>
