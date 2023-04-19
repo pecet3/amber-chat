@@ -77,9 +77,7 @@ export const EditProfile = () => {
         <p className="px-2 text-sm underline">
           Don't forget update your profile!
         </p>
-        <button className="submitButton bg-teal-00">
-          Update your profile!
-        </button>
+        <button className="submitButton bg-emerald-600 px-4 ">Update</button>
       </form>
     </section>
   );
