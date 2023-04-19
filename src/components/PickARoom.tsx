@@ -5,7 +5,7 @@ import { EditProfile } from "./EditProfile";
 
 const PickARoom = () => {
   const [selectValue, setSelectValue] = React.useState("#room1");
-  const { setRoom, user } = React.useContext(Context) as TContext;
+  const { setRoom, status } = React.useContext(Context) as TContext;
   const onFormChange = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -32,6 +32,9 @@ const PickARoom = () => {
           Enter
         </button>
       </form>
+      <p className="mt-10 text-red-800 underline">
+        {status.message && status.message}
+      </p>
 
       <EditProfile />
       <LogOutButton />
