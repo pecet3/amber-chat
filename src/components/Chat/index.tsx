@@ -1,15 +1,4 @@
-import { useState, useEffect, useRef, useContext } from "react";
-import Context, { TContext } from "../../ChatContext";
-import { nanoid } from "nanoid";
-import {
-  collection,
-  onSnapshot,
-  query,
-  where,
-  orderBy,
-} from "firebase/firestore";
-import { auth, db } from "../../firebase-config";
-
+import { useRef } from "react";
 import { ChatHeader } from "./ChatHeader";
 import { Form } from "./Form";
 import { Messages } from "./Messages";
