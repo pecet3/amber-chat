@@ -8,7 +8,7 @@ export const EditProfile = () => {
   const [inputUser, setInputUser] = React.useState({
     name: "",
   });
-  const { user, setUser } = React.useContext(Context) as TContext;
+  const { user, setUser, setStatus } = React.useContext(Context) as TContext;
   const { avatar, getAvatar } = useGetAvatar();
 
   const updateData = async () => {
@@ -20,6 +20,13 @@ export const EditProfile = () => {
         photoURL:
           avatar.message !== "" ? avatar.message : auth.currentUser?.photoURL,
       });
+      setStatus(
+        (prev) =>
+          (prev = {
+            status: "success",
+            message: "Data has been updated successfully",
+          })
+      );
     } catch (err) {
       alert(err);
     }
@@ -38,8 +45,8 @@ export const EditProfile = () => {
   // }, []);
 
   return (
-    <section className="my-10">
-      <h2 className="m-0 text-xl">Edit Your Profile</h2>
+    <section className="my-8">
+      <h2 className="m-0 text-2xl">Edit Your Profile</h2>
       <form
         className="form mb-2 mt-1"
         onSubmit={(e) => {
