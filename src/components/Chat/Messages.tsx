@@ -45,7 +45,7 @@ export const Messages: React.FC<IMessages> = ({ scrollRef }) => {
   }, []);
 
   return (
-    <div className="m-auto flex h-[760px] max-w-3xl flex-col gap-2 overflow-y-scroll rounded-2xl">
+    <div className="m-auto flex max-h-[800px] max-w-3xl flex-col gap-2 overflow-y-scroll rounded-2xl">
       {messages.map((message) => (
         <div
           key={nanoid()}
