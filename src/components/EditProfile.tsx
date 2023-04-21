@@ -51,10 +51,19 @@ export const EditProfile = () => {
         className="form mb-2 mt-1"
         onSubmit={(e) => {
           e.preventDefault();
+          if (inputUser.name.length <= 3)
+            return setStatus(
+              (prev) =>
+                (prev = {
+                  status: "error",
+                  message: "User name must be at least 3 characters",
+                })
+            );
           updateData();
         }}
       >
         <input
+          pattern="[a-zA-Z0-9]+"
           type="text"
           className="inputElement"
           name="name"
