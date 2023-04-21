@@ -58,7 +58,7 @@ export const Form: React.FC<IForm> = () => {
   };
   const uploadImage = () => {
     if (upload == null) return;
-    const imageRef = ref(storage, `images/${upload.name + nanoid()}`);
+    const imageRef = ref(storage, `images/${room}/${upload.name + nanoid()}`);
     uploadBytes(imageRef, upload).then(() => {
       alert("successfully uploaded");
     });
