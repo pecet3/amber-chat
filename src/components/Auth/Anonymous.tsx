@@ -42,6 +42,7 @@ export const Anonymous: React.FC = () => {
         <input
           type="text"
           name="name"
+          pattern="[a-zA-Z0-9]+"
           className="inputElement"
           placeholder="Enter your name..."
           value={nameInput}
