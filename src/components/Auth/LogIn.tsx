@@ -43,7 +43,7 @@ export const LogIn: React.FC = () => {
       className="form"
       onSubmit={(e) => {
         e.preventDefault();
-        if (loginInput.email.length < 6 || loginInput.password.length < 6)
+        if (loginInput.email.length <= 6 || loginInput.password.length <= 6)
           return setStatus(
             (prev) =>
               (prev = {
@@ -56,12 +56,13 @@ export const LogIn: React.FC = () => {
     >
       <legend>Log in, here!</legend>
       <input
-        type="text"
+        type="email"
         className="inputElement"
         value={loginInput.email}
         placeholder="Enter your name"
         name="email"
         onChange={loginOnChange}
+        required={true}
       />
       <input
         type="password"
@@ -70,6 +71,8 @@ export const LogIn: React.FC = () => {
         name="password"
         placeholder="password"
         onChange={loginOnChange}
+        pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+        required={true}
       />
 
       <button className="submitButton px-6" onClick={() => console.log()}>
