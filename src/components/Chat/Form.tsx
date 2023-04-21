@@ -1,7 +1,9 @@
 import { useState, useRef, useContext } from "react";
 import Context, { TContext } from "../../ChatContext";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { auth, db } from "../../firebase-config";
+import { ref, uploadBytes } from "firebase/storage";
+import { auth, db, storage } from "../../firebase-config";
+import { nanoid } from "nanoid";
 export interface IForm {}
 export const Form: React.FC<IForm> = () => {
   const [newMessage, setNewMessage] = useState("");
@@ -52,7 +54,13 @@ export const Form: React.FC<IForm> = () => {
       setUpload(inputElement.files[0]);
     }
   };
-  const uploadImage = () => {};
+  const uploadImage = () => {
+    if (upload == null) return;
+    const imageRef = ref(storage, `images/${upload.name + nanoid()}`);
+    uploadBytes(imageRef, upload).then(() => {
+      alert("successfully uploaded");
+    });
+  };
   return (
     <form
       noValidate
@@ -76,7 +84,9 @@ export const Form: React.FC<IForm> = () => {
         Send
       </button>
       <input type="file" onChange={handleUploadChange} />
-      <button onClick={uploadImage}></button>
+      <button onClick={uploadImage} className="submitButton">
+        upload
+      </button>
     </form>
   );
 };
