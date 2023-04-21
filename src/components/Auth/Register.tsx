@@ -88,6 +88,7 @@ export const Register: React.FC = () => {
             value={registerInput.email}
             placeholder="Enter your email"
             onChange={registerOnChange}
+            required={true}
           />
           <input
             type="password"
@@ -96,6 +97,8 @@ export const Register: React.FC = () => {
             value={registerInput.password}
             placeholder="password"
             onChange={registerOnChange}
+            pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+            required={true}
           />
 
           <button className="submitButton bg-teal-500 px-6">Register</button>
