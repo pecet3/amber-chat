@@ -1,6 +1,5 @@
 import React from "react";
-import { auth, provider } from "./firebase-config";
-import { signInWithPopup, User } from "firebase/auth";
+import { User } from "firebase/auth";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 export interface IProvider {
