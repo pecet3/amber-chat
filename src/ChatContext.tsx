@@ -21,6 +21,8 @@ export type TContext = {
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   status: TStatus;
   setStatus: React.Dispatch<React.SetStateAction<TStatus>>;
+  imgListURL: string[];
+  setImgListURL: React.Dispatch<React.SetStateAction<string[]>>;
 };
 export const ChatContextProvider: React.FC<IProvider> = ({ children }) => {
   const [isAuth, setIsAuth] = React.useState(!!cookies.get("auth-token"));
@@ -31,6 +33,7 @@ export const ChatContextProvider: React.FC<IProvider> = ({ children }) => {
     status: "loading",
     message: "",
   });
+  const [imgListURL, setImgListURL] = React.useState([""]);
 
   return (
     <Context.Provider
@@ -45,6 +48,8 @@ export const ChatContextProvider: React.FC<IProvider> = ({ children }) => {
         setUser,
         status,
         setStatus,
+        imgListURL,
+        setImgListURL,
       }}
     >
       {children}
