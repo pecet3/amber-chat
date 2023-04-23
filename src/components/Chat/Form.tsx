@@ -81,12 +81,12 @@ export const Form: React.FC<IForm> = () => {
   }, [imgListURL]);
   return (
     <>
-      <div className="m-auto flex max-w-3xl items-center justify-around rounded-t-lg bg-stone-300 ">
+      {/* <div className="m-auto flex max-w-3xl items-center justify-around rounded-t-lg bg-stone-300 ">
         <input type="file" onChange={handleUploadChange} />
         <button onClick={uploadImage} className="submitButton">
           Upload
         </button>
-      </div>
+      </div> */}
       <form
         noValidate
         onSubmit={handleSubmit}
