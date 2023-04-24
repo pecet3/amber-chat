@@ -24,7 +24,7 @@ function App() {
               Link to my GitHub
             </a>
           </p>
-          <p className="mt-2 text-xs text-slate-400">v0.7 beta</p>
+          <p className="mt-2 text-xs text-slate-400">v1.0</p>
         </footer>
       </>
     );
