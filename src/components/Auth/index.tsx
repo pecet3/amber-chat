@@ -10,9 +10,7 @@ import { Anonymous } from "./Anonymous";
 import Context, { TContext } from "../../ChatContext";
 
 export const Auth: React.FC = () => {
-  const { user, setUser, status, setStatus } = React.useContext(
-    Context
-  ) as TContext;
+  const { setUser, status, setStatus } = React.useContext(Context) as TContext;
   const [click, setClick] = React.useState(false);
 
   React.useEffect(() => {
