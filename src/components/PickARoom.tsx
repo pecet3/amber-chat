@@ -4,7 +4,7 @@ import { LogOutButton } from "../common/LogOutButton";
 import { EditProfile } from "./EditProfile";
 
 const PickARoom = () => {
-  const [selectValue, setSelectValue] = React.useState("#room1");
+  const [selectValue, setSelectValue] = React.useState("#polish_room");
   const { setRoom, status } = React.useContext(Context) as TContext;
   const onFormChange = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,9 +21,10 @@ const PickARoom = () => {
           value={selectValue}
           onChange={(e) => setSelectValue(e.currentTarget.value)}
         >
-          <option value="#room1">#room1</option>
-          <option value="#rbi">#rbi❤</option>
-          <option value="#dev">#dev</option>
+          <option value="#polish_room">#polish_room</option>
+          <option value="#english_room">#english_room</option>
+          <option value="#english_room2">#english_room2</option>
+          {/* <option value="#dev">#dev</option> */}
         </select>
         <button
           className="submitButton bg-purple-600 px-6 text-lg shadow-lg md:hover:scale-105"
